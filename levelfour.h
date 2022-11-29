@@ -2,6 +2,7 @@
 #define LEVELFOUR_H
 
 #include "abstractlevel.h"
+#include <cstdlib>
 
 class LevelFour : public AbstractLevel {
     bool isRandom;
