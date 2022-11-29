@@ -10,9 +10,9 @@ class AbstractBlock {
     public:
         void left();
         void right();
-        void rotate(bool ccw);
+        void rotate(bool ccw) = 0;
         void down();
-        void drop() = 0;
+        void drop();
 };
 
 #endif
