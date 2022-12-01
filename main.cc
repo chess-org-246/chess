@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-#include "board.h"
-#include "cell.h"
-#include "iblock.h"
-#include "sblock.h"
-
-
-int main() {
-    
-    
-    
-    
-}
-=======
 #include <string>
 
 int main(int argc, char* argv[]) {
@@ -36,4 +22,3 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
->>>>>>> mainfile
