@@ -2,14 +2,21 @@
 #define LEVELONE_H
 
 #include "abstractlevel.h"
-#include <random> 
+#include <cstdlib> 
+#include <memory>
+#include "iblock.h"
+#include "jblock.h"
+#include "lblock.h"
+#include "oblock.h"
+#include "sblock.h"
+#include "tblock.h"
+#include "zblock.h"
+
+class Board;
 
 class LevelOne : public AbstractLevel {
-    int seed;
-
     public:
-        explicit LevelOne(int _seed = 0);
-        Block generateBlock();
+        Block* generateBlock();
 };
 
 #endif

@@ -11,7 +11,7 @@ class LevelZero : public AbstractLevel {
     int sequence_index;
 
     public:
-        explicit LevelZero(std::string filename="sequence1.txt");
+        explicit LevelZero(std::string filename);
         Block generateBlock();
 };
 
