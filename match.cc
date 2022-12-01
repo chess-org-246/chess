@@ -14,6 +14,12 @@ Match::playMatch() {
         if (std::cin >> cmd) {
             game_1.level->generateBlock(); // create the first blocks
             game_2.level->generateBlock();
+
+            // something something to take input for game 1
+            // run game 1's commands
+
+            // game 2's input
+            // game 2's commands
         }
     }
 }
