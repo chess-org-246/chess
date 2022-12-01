@@ -4,21 +4,27 @@ LevelThree::LevelThree():
     isRandom{false}, sequence_index{0} {}
 
 void LevelThree::random() {
-    isRandom = true;
-}
-
-void LevelThree::noRandom(std::string filename) {
-    isRandom = false;
-    sequence_index = 0;
-    ifstream ifs {filename};
-    std::string temp;
-
-    while (ifs >> temp) {
-        sequence.emplace_back(temp[0]);
+    if (!isRandom) {
+        isRandom = true;    
+        sequence.clear();
     }
 }
 
-Block LevelThree::generateBlock(Game* game) {
+void LevelThree::noRandom(std::string filename) {
+    if (isRandom) {
+        isRandom = false;
+        sequence_index = 0;
+        ifstream ifs {filename};
+        std::string temp;
+
+        while (ifs >> temp) {
+            sequence.emplace_back(temp[0]);
+        }
+    }
+}
+
+Block* LevelThree::generateBlock(Game* game) {
+    Block* b = nullptr;
     if (isRandom == true) {
         int r = (rand() % 9) + 1;
 
@@ -54,18 +60,25 @@ Block LevelThree::generateBlock(Game* game) {
     } else {
         switch sequence[sequence_index] {
             case 'I':
+                b = unique_ptr(new IBlock(game));
                 break;
             case 'J':
+                b = unique_ptr(new JBlock(game));
                 break;
             case 'L':
+                b = unique_ptr(new LBlock(game));
                 break;
             case 'O':
+                b = unique_ptr(new OBlock(game));
                 break;
             case 'S':
+                b = unique_ptr(new SBlock(game));
                 break;
             case 'T':
+                b = unique_ptr(new TBlock(game));
                 break;
             case 'Z':
+                b = unique_ptr(new ZBlock(game));
                 break;
         }
         sequence_index++;
@@ -73,4 +86,5 @@ Block LevelThree::generateBlock(Game* game) {
             sequence_index = 0;
         }
     }
+    return b;
 }

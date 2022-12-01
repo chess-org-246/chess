@@ -1,6 +1,6 @@
 #include "levelzero.h"
 
-LevelZero::LevelZero(std::string filename="sequence1.txt"):
+LevelZero::LevelZero(std::string filename):
     sequence_index{0} {
     ifstream ifs {filename};
     std::string temp;

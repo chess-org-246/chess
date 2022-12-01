@@ -1,6 +1,7 @@
 #include "leveltwo.h"
 
 Block LevelTwo::generateBlock(Game* game) {
+    Block* b = nullptr;
     int r = (rand() % 7) + 1;
 
     switch r {
