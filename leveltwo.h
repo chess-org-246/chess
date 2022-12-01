@@ -14,7 +14,7 @@
 
 class LevelTwo : public AbstractLevel {
     public:
-        Block generateBlock();
+        Block generateBlock(Board* board);
 };
 
 #endif

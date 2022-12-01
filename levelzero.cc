@@ -9,29 +9,29 @@ LevelZero::LevelZero(std::string filename):
     }
 }
 
-Block LevelZero::generateBlock() {
+Block LevelZero::generateBlock(Board* board) {
     // in here, make the right type of block
     switch sequence[sequence_index] {
         case 'I':
-            b = std::make_unique<IBlock>(game);
+            b = std::make_unique<IBlock>(board);
             break;
         case 'J':
-            b = std::make_unique<JBlock>(game);
+            b = std::make_unique<JBlock>(board);
             break;
         case 'L':
-            b = std::make_unique<LBlock>(game);
+            b = std::make_unique<LBlock>(board);
             break;
         case 'O':
-             b = std::make_unique<OBlock>(game);
+             b = std::make_unique<OBlock>(board);
             break;
         case 'S':
-            b = std::make_unique<SBlock>(game);
+            b = std::make_unique<SBlock>(board);
             break;
         case 'T':
-            b = std::make_unique<TBlock>(game);
+            b = std::make_unique<TBlock>(board);
             break;
         case 'Z':
-            b = std::make_unique<ZBlock>(game);
+            b = std::make_unique<ZBlock>(board);
             break;
     }
     sequence_index++;

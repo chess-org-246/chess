@@ -24,7 +24,7 @@ class LevelFour : public AbstractLevel {
         LevelFour();
         void random();
         void noRandom(std::string filename);
-        Block generateBlock();
+        Block generateBlock(Board* board);
 };
 
 #endif
