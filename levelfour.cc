@@ -30,55 +30,55 @@ Block* LevelFour::generateBlock() {
 
         switch r {
             case 1:
-                b = unique_ptr(new IBlock(game));
+                b = std::make_unique<IBlock>(game);
                 break;
             case 2:
-                b = unique_ptr(new JBlock(game));
+                b = std::make_unique<JBlock>(game);
                 break;
             case 3:
-                b = unique_ptr(new LBlock(game));
+                b = std::make_unique<LBlock>(game);
                 break;
             case 4:
-                b = unique_ptr(new OBlock(game));
+                b = std::make_unique<OBlock>(game);
                 break;
             case 5:
-                b = unique_ptr(new SBlock(game));
+                b = std::make_unique<SBlock>(game);
                 break;
             case 6
-                b = unique_ptr(new SBlock(game));
+                b = std::make_unique<SBlock>(game);
                 break;
             case 7:
-                b = unique_ptr(new ZBlock(game));
+                b = std::make_unique<ZBlock>(game);
                 break;
             case 8:
-                b = unique_ptr(new ZBlock(game));
+                b = std::make_unique<ZBlock>(game);
                 break;
             case 9:
-                b = unique_ptr(new TBlock(game));
+                b = std::make_unique<TBlock>(game);
                 break;
         } 
     } else {
         switch sequence[sequence_index] {
             case 'I':
-                b = unique_ptr(new IBlock(game));
+                b = std::make_unique<IBlock>(game);
                 break;
             case 'J':
-                b = unique_ptr(new JBlock(game));
+                b = std::make_unique<JBlock>(game);
                 break;
             case 'L':
-                b = unique_ptr(new LBlock(game));
+                b = std::make_unique<LBlock>(game);
                 break;
             case 'O':
-                b = unique_ptr(new OBlock(game));
+                b = std::make_unique<OBlock>(game);
                 break;
             case 'S':
-                b = unique_ptr(new SBlock(game));
+                b = std::make_unique<SBlock>(game);
                 break;
             case 'T':
-                b = unique_ptr(new TBlock(game));
+                b = std::make_unique<TBlock>(game);
                 break;
             case 'Z':
-                b = unique_ptr(new ZBlock(game));
+                b = std::make_unique<ZBlock>(game);
                 break;
         }
         sequence_index++;
