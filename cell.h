@@ -5,8 +5,10 @@ class Cell {
     char curChar;
 
     public:
+        Cell(char init);
         bool getHidden();
         char getChar();
+        void setChar(char c);
 };
 
 #endif

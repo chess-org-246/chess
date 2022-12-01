@@ -4,9 +4,13 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
+#include "iostream"
 
 class Board {
-    std::vector<std::vector<unique_ptr<Cell>>> board; /* 18 rows * 11 cols */
+    public:
+    std::vector<std::vector<std::unique_ptr<Cell>>> board; /* 18 rows * 11 cols */
+    Board();
+    void printBoard();
 };
 
 #endif
