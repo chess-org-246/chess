@@ -1,9 +1,16 @@
 #include "game.h"
+#include "textobserver.h"
+#include "graphobserver.h"
 #include <iostream>
 
 
 int main(/*int argc, char* argv[]*/) {
+    std::vector<textobserver*> textstack;
+
     Game g1{1};
+    textobserver* temp = new textobserver(&g1);
+    textstack.emplace_back(temp);
+
     std::string command; 
     while(std::cin >> command) {
         if (command == "g") {
@@ -30,4 +37,7 @@ int main(/*int argc, char* argv[]*/) {
             g1.printBoard();
         }
     }
+    for(size_t i = 0;i<textstack.size();i++){
+    delete textstack[i];
+  }
 }

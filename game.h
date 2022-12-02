@@ -15,11 +15,12 @@
 #include "cell.h"
 //#include "levelzero.h"
 #include "levelone.h"
+
 // #include "leveltwo.h"
 // #include "levelthree.h"
 // #include "levelfour.h"
 
-class Game/*: public Subject*/{
+class Game: public Subject{
     Board board;
     std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
@@ -45,7 +46,7 @@ class Game/*: public Subject*/{
         void drop();
         void down();
         void rotate(bool ccw);
-        char getState(int row, int col);
+        char getState(int row, int col) const override;
         bool isHeavy();
         bool isBlind();
         void replaceCur(AbstractBlock* b);
