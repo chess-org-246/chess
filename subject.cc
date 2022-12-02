@@ -3,6 +3,7 @@
 
 void Subject::attach(Observer* o){
     observers.emplace_back(o);
+    // std::cout << "Attatched" << std::endl;
 }
 
 void Subject::detach(Observer *o){

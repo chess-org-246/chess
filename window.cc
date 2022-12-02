@@ -67,7 +67,10 @@ Xwindow::~Xwindow() {
 }
 
 void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
+  std::cout << colour << std::endl;
   XSetForeground(d, gc, colours[colour]);
+  // XSetForeground(d, gc, );
+
   XFillRectangle(d, w, gc, x, y, width, height);
   XSetForeground(d, gc, colours[Black]);
 }

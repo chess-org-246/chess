@@ -6,10 +6,13 @@
 
 int main(/*int argc, char* argv[]*/) {
     std::vector<textobserver*> textstack;
+    std::vector<graphobserver*> graphstack;
 
     Game g1{1};
     textobserver* temp = new textobserver(&g1);
     textstack.emplace_back(temp);
+    graphobserver* templ = new graphobserver(&g1);
+    graphstack.emplace_back(templ);
 
     std::string command; 
     while(std::cin >> command) {
@@ -38,6 +41,9 @@ int main(/*int argc, char* argv[]*/) {
         }
     }
     for(size_t i = 0;i<textstack.size();i++){
-    delete textstack[i];
-  }
+        delete textstack[i];
+    }
+    for(size_t i = 0;i<graphstack.size();i++){
+        delete graphstack[i];
+    }
 }
