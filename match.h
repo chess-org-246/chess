@@ -2,9 +2,8 @@
 #define MATCH_H
 
 #include "game.h"
-#include "input.h"
 #include <iostream>
-#include <stringstream>
+#include <sstream>
 
 class Match {
     int high_score_1;

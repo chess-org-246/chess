@@ -8,7 +8,7 @@
 class AbstractBlock {
     protected:
     //std::vector<std::vector<Cell*>> blockCells;
-    std::vector<std::vector<std::vector<int>>> mask; /* 2d vector of cell ptrs, 4x4 */
+    std::vector<std::vector<std::vector<int>>> mask; 
     Board * board;
     int currOrientation;
     int t;

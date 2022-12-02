@@ -1,31 +1,34 @@
 #include "leveltwo.h"
 
-Block LevelTwo::generateBlock(Game* game) {
-    Block* b = nullptr;
+AbstractBlock* LevelTwo::generateBlock(Board* board) {
+    AbstractBlock* b = nullptr;
     int r = (rand() % 7) + 1;
-
-    switch r {
-        case 1:
-            b = std::make_unique<IBlock>(game);
-            break;
-        case 2:
-            b = std::make_unique<JBlock>(game);
-            break;
-        case 3:
-            b = std::make_unique<LBlock>(game);
-            break;
-        case 4:
-            b = std::make_unique<OBlock>(game);
-            break;
-        case 5:
-            b = std::make_unique<SBlock>(game);
-            break;
-        case 6:
-            b = std::make_unique<ZBlock>(game);
-            break;
-        case 7:
-            b = std::make_unique<TBlock>(game);
-            break;
+    try {
+        switch (r) {
+            case 1:
+                b = std::make_unique<IBlock>(board).get();
+                break;
+            case 2:
+                b = std::make_unique<JBlock>(board).get();
+                break;
+            case 3:
+                b = std::make_unique<LBlock>(board).get();
+                break;
+            case 4:
+                b = std::make_unique<OBlock>(board).get();
+                break;
+            case 5:
+                b = std::make_unique<SBlock>(board).get();
+                break;
+            case 6:
+                b = std::make_unique<ZBlock>(board).get();
+                break;
+            case 7:
+                b = std::make_unique<TBlock>(board).get();
+                break;
+        }
+    } catch (NoSpaceForBlock) {
+        return nullptr;
     }
     return b;
 }

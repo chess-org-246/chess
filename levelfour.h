@@ -17,14 +17,14 @@
 
 class LevelFour : public AbstractLevel {
     bool isRandom;
-    vector<char> sequence;
+    std::vector<char> sequence;
     int sequence_index;
 
     public:
         LevelFour();
         void random();
         void noRandom(std::string filename);
-        Block generateBlock();
+        AbstractBlock* generateBlock(Board* board);
 };
 
 #endif

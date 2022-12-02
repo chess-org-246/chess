@@ -4,40 +4,51 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
+#include <vector>
+#include <utility>
 
 #include "board.h"
+#include "abstractblock.h"
 #include "subject.h"
-#include "level.h"
-#include "match.h"
+#include "abstractlevel.h"
 #include "cell.h"
+//#include "levelzero.h"
+#include "levelone.h"
+// #include "leveltwo.h"
+// #include "levelthree.h"
+// #include "levelfour.h"
 
-class Game: public subject{
-    std::vector<std::vector<std::unique_ptr<Cell>>> board;
-    Level *level;
+class Game/*: public Subject*/{
+    Board board;
+    std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
     int row, col;
     bool heavy, blind;
-    void checkRows();
-    void constructiveForce();
-    void specialAction();
-    void rotate();
-    void left();
-    void right();
-    void drop();
-    void down();
+    std::unique_ptr<AbstractBlock> currBlock;
     
-
     public:
-        Game(Board board, Level *level): board{board}, level{level}{};
         int levelFourCounter = 0;
         int numOfBlocksPlaced = 0;
         int currentLevel = 0;
         int score = 0;
+
+        Game(int curLevel, std::string filename = "");
+        void printBoard();
+        void checkRows();
+        void genBlock();
+        void constructiveForce();
+        void specialAction();
+        void rotate();
+        void left();
+        void right();
+        void drop();
+        void down();
+        void rotate(bool ccw);
         char getState(int row, int col);
         bool isHeavy();
         bool isBlind();
-        void replaceCur(Block b);
-
-}
+        void replaceCur(AbstractBlock* b);
+};
 
 #endif 

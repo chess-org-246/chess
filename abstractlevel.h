@@ -3,10 +3,14 @@
 
 #include <string>
 #include <vector>
-class Block; // not sure if include or forward declare
+#include <memory>
+#include "error.h"
+class Board;
+class AbstractBlock;
 
 class AbstractLevel {
-    Block generateBlock() = 0;
+    public:
+        virtual std::unique_ptr<AbstractBlock> generateBlock(Board * board) = 0;
 };
 
 #endif
