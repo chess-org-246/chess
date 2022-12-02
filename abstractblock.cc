@@ -95,3 +95,10 @@ void AbstractBlock::updateBoard(int t, int l) {
     }
 }
 
+int AbstractBlock::getT() {
+    return t;
+} 
+
+int AbstractBlock::getL() {
+    return l;
+}

@@ -7,13 +7,13 @@
 
 class AbstractBlock {
     protected:
-    //std::vector<std::vector<Cell*>> blockCells;
-    std::vector<std::vector<std::vector<int>>> mask; 
-    Board * board;
-    int currOrientation;
-    int t;
-    int l;
-    char blockType;
+        //std::vector<std::vector<Cell*>> blockCells;
+        std::vector<std::vector<std::vector<int>>> mask; 
+        Board * board;
+        int currOrientation;
+        int t;
+        int l;
+        char blockType;
     public:
         AbstractBlock(Board * board) : board{board}, currOrientation{0}, t{0}, l{0} {};
         void updateBoard(int t, int l);
@@ -24,6 +24,9 @@ class AbstractBlock {
         void rotate(bool ccw);
         void down();
         void drop();
+
+        int getT();
+        int getL();
 };
 
 #endif
