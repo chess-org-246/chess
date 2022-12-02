@@ -85,7 +85,7 @@ AbstractBlock* LevelFour::generateBlock(Board* board) {
             sequence_index++;
             if (sequence_index >= (int) sequence.size()) {
                 sequence_index = 0;
-            }
+            } 
         }
     } catch (NoSpaceForBlock) {
         return nullptr;
