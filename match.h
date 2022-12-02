@@ -6,14 +6,13 @@
 #include <sstream>
 
 class Match {
-    int high_score_1;
-    int high_score_2;
-    Game game_1;
-    Game game_2;
+    int highScore
+    Game game1;
+    Game game2;
     Input input;
 
     public:
-        Match();
+        Match(int p1Level, int p2Level);
         void playMatch();
 };
 

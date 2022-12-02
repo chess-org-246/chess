@@ -24,15 +24,14 @@ class Game/*: public Subject*/{
     std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
     int row, col;
+    int levelFourCounter = 0;
+    int numOfBlocksPlaced = 0;
+    int currentLevel = 0;
+    int score = 0;
     bool heavy, blind;
     std::unique_ptr<AbstractBlock> currBlock;
     
     public:
-        int levelFourCounter = 0;
-        int numOfBlocksPlaced = 0;
-        int currentLevel = 0;
-        int score = 0;
-
         Game(int curLevel, std::string filename = "");
         void printBoard();
         void checkRows();
