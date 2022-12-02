@@ -1,7 +1,7 @@
 #include "tblock.h"
 #include "error.h"
 
-TBlock::TBlock(Board * board) : AbstractBlock{board} {
+TBlock::TBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'T';
     if (testCollisions(t, l, currOrientation)) {

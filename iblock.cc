@@ -2,7 +2,7 @@
 #include "error.h"
 #include "abstractlevel.h"
 
-IBlock::IBlock(Board * board) : AbstractBlock{board} {
+IBlock::IBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'I';
     if (testCollisions(t, l, currOrientation)) {

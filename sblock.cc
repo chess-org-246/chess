@@ -1,7 +1,7 @@
 #include "sblock.h"
 #include "error.h"
 
-SBlock::SBlock(Board * board) : AbstractBlock{board} {
+SBlock::SBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'S';
     if (testCollisions(t, l, currOrientation)) {

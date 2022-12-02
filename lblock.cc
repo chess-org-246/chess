@@ -1,7 +1,7 @@
 #include "lblock.h"
 #include "error.h"
 
-LBlock::LBlock(Board * board) : AbstractBlock{board} {
+LBlock::LBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'L';
     if (testCollisions(t, l, currOrientation)) {

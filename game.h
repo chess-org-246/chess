@@ -29,7 +29,7 @@ class Game/*: public Subject*/{
     int currentLevel = 0;
     int score = 0;
     bool heavy, blind;
-    std::unique_ptr<AbstractBlock> currBlock;
+    std::vector<std::unique_ptr<AbstractBlock>> blocks;
     
     public:
         Game(int curLevel, std::string filename = "");
