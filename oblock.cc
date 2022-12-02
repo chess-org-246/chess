@@ -1,7 +1,7 @@
 #include "oblock.h"
 #include "error.h"
 
-OBlock::OBlock(Board * board) : AbstractBlock{board} {
+OBlock::OBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'O';
     if (testCollisions(t, l, currOrientation)) {

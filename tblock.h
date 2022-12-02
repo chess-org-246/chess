@@ -5,7 +5,7 @@
 class TBlock : public AbstractBlock {
     void init_mask();
     public:
-    TBlock(Board * board);
+    TBlock(Board * board, int _blockLevel);
     
 };
 

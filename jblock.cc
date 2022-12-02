@@ -1,7 +1,7 @@
 #include "jblock.h"
 #include "error.h"
 
-JBlock::JBlock(Board * board) : AbstractBlock{board} {
+JBlock::JBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'J';
     if (testCollisions(t, l, currOrientation)) {

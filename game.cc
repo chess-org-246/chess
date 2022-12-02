@@ -5,7 +5,8 @@ void Game::printBoard() {
     board.printBoard();
 }
 
-Game::Game(int curLevel, std::string filename) {
+Game::Game(int curLevel, std::string filename):
+    currentLevel{curLevel} {
     filename = filename;
         /*if (curLevel == 0) {
             al = std::make_unique<LevelZero>(filename).get();
@@ -39,7 +40,7 @@ char Game::getState(int row, int col){
 }
 
 void Game::genBlock() {
-    currBlock = level->generateBlock(&board);
+    blocks.insert(blocks.begin(), level->generateBlock(&board));
     
 }
 
@@ -53,7 +54,6 @@ void Game::checkRows() {
             }
         }
         if(fullRow) {
-            std::cout << "hullo" << std::endl;
             board.board.erase(board.board.begin() + i);
             std::vector<std::unique_ptr<Cell>> vec;
             for (int k = 0; k < width; ++k) {
@@ -65,7 +65,7 @@ void Game::checkRows() {
             numOfRowsCleared++;
         }
     }
-    if (numOfRowsCleared == 0 && level == 4) {
+    if (numOfRowsCleared == 0) {
         levelFourCounter++;
     }
     else if(numOfRowsCleared == 1){
@@ -75,6 +75,13 @@ void Game::checkRows() {
         score += (currentLevel + numOfRowsCleared) * (currentLevel + numOfRowsCleared);
         //prompt user for input on which type of speical power they wnat
         specialAction();
+    }
+    for (auto it = blocks.begin(); it != blocks.end(); ++it) {
+        if (!((*it)->checkCells())) {
+            score += (1 + (*it)->getBlockLevel()) * (1 + (*it)->getBlockLevel());
+            it = blocks.erase(it);
+            --it;
+        }
     }
 }
 
@@ -97,22 +104,22 @@ bool Game::isBlind(){
 }
 
 void Game::left() {
-    currBlock->left();
+    blocks[0]->left();
 }
 
 void Game::right() {
-    currBlock->right();
+    blocks[0]->right();
 }
 
 void Game::down() {
-    currBlock->down();
+    blocks[0]->down();
 }
 
 void Game::rotate(bool ccw) {
-    currBlock->rotate(ccw);
+    blocks[0]->rotate(ccw);
 }
 
 void Game::drop() {
-    currBlock->drop();
+    blocks[0]->drop();
     checkRows();
 }

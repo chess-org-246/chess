@@ -5,7 +5,7 @@
 class JBlock : public AbstractBlock {
     void init_mask();
     public:
-        JBlock(Board * board);
+        JBlock(Board * board, int _blockLevel);
     
 };
 
