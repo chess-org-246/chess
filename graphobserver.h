@@ -6,7 +6,7 @@
 class graphobserver: public Observer{
     Game* game;
     std::ostream &out = std::cout;
-    int top, bottom, left, right;
+    int height = 18,width = 11;
     Xwindow w;
 
     public:

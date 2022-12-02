@@ -3,12 +3,14 @@
 
 graphobserver::graphobserver(Game *game){
     this->game = game;
+    // std::cout << "out" << std::endl;
     game->attach(this);
 }
 
 void graphobserver::notify(){
-    for (int i = top; i < bottom; ++i) {
-        for (int j = left; j < right; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            // std::cout << "YOE" << std::endl;
             char c = game->getState(i,j);
             int val = 0;
             if (c == 'I'){
@@ -32,6 +34,7 @@ void graphobserver::notify(){
             else if (c == 'T'){
                 val = 7;
             }
+            // std::cout << c << " " << val << std::endl;
             w.fillRectangle(j*10, i*10, 10, 10, val);
         }
     }

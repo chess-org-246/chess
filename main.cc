@@ -78,7 +78,15 @@ int main(/*int argc, char* argv[]*/) {
     */
 =======
     for(size_t i = 0;i<textstack.size();i++){
+<<<<<<< HEAD
     delete textstack[i];
   }
 >>>>>>> ff85e6b (added text and basic grahpics observer)
+=======
+        delete textstack[i];
+    }
+    for(size_t i = 0;i<graphstack.size();i++){
+        delete graphstack[i];
+    }
+>>>>>>> d18abab (COLOURS DONT WORK)
 }
