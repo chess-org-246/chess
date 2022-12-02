@@ -1,5 +1,7 @@
 #include "game.h"
 #include "trie.h"
+#include "textobserver.h"
+#include "graphobserver.h"
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -72,5 +74,11 @@ int main(/*int argc, char* argv[]*/) {
             g1.noRandom(f);
         }
     }
+<<<<<<< HEAD
     */
+=======
+    for(size_t i = 0;i<textstack.size();i++){
+    delete textstack[i];
+  }
+>>>>>>> ff85e6b (added text and basic grahpics observer)
 }

@@ -19,7 +19,7 @@
 #include "levelthree.h"
 #include "levelfour.h"
 
-class Game/*: public Subject*/{
+class Game: public Subject{
     Board board;
     std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
