@@ -16,7 +16,8 @@ class Board;
 
 class LevelOne : public AbstractLevel {
     public:
-        Block* generateBlock(Board* board);
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board);
+
 };
 
 #endif

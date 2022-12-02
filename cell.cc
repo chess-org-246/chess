@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell(char init) : curChar{init} {}
+Cell::Cell(char init = '.') : curChar{init} {}
 
 bool Cell::getHidden() {
     return isHidden;
