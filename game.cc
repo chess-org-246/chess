@@ -65,7 +65,7 @@ void Game::checkRows() {
             numOfRowsCleared++;
         }
     }
-    if (numOfRowsCleared == 0 && level == 4) {
+    if (numOfRowsCleared == 0) {
         levelFourCounter++;
     }
     else if(numOfRowsCleared == 1){
