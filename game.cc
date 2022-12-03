@@ -2,7 +2,7 @@
 
 
 void Game::printBoard() {
-    board.printBoard();
+    this->notifyObservers();
 }
 
 Game::Game(int curLevel, std::string filename):
@@ -35,7 +35,7 @@ Game::Game(int curLevel, std::string filename):
 }
 
 
-char Game::getState(int row, int col){
+char Game::getState(int row, int col) const{
     return board.board[row][col]->getChar();
 }
 

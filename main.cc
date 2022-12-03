@@ -1,9 +1,19 @@
 #include "game.h"
+#include "textobserver.h"
+#include "graphobserver.h"
 #include <iostream>
 
 
 int main(/*int argc, char* argv[]*/) {
+    std::vector<textobserver*> textstack;
+    std::vector<graphobserver*> graphstack;
+
     Game g1{1};
+    textobserver* temp = new textobserver(&g1);
+    textstack.emplace_back(temp);
+    graphobserver* templ = new graphobserver(&g1);
+    graphstack.emplace_back(templ);
+
     std::string command; 
     while(std::cin >> command) {
         if (command == "g") {
@@ -29,5 +39,11 @@ int main(/*int argc, char* argv[]*/) {
             g1.rotate(true);
             g1.printBoard();
         }
+    }
+    for(size_t i = 0;i<textstack.size();i++){
+        delete textstack[i];
+    }
+    for(size_t i = 0;i<graphstack.size();i++){
+        delete graphstack[i];
     }
 }
