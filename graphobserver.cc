@@ -3,13 +3,13 @@
 
 graphobserver::graphobserver(Game *game){
     this->game = game;
-    // std::cout << "out" << std::endl;
+    this->w = new Xwindow(width, height);
     game->attach(this);
 }
 
 void graphobserver::notify(){
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
+    for (int i = 0; i < height/40; ++i) {
+        for (int j = 0; j < width/40; ++j) {
             // std::cout << "YOE" << std::endl;
             char c = game->getState(i,j);
             int val = 0;
@@ -35,11 +35,12 @@ void graphobserver::notify(){
                 val = 7;
             }
             // std::cout << c << " " << val << std::endl;
-            w.fillRectangle(j*10, i*10, 10, 10, val);
+            w->fillRectangle(j*40, i*40, 40, 40, val);
         }
     }
 }
 
 graphobserver::~graphobserver(){
     game->detach(this);
+    delete this->w;
 }
