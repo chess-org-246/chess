@@ -18,6 +18,9 @@ int main(/*int argc, char* argv[]*/) {
     while(std::cin >> command) {
         if (command == "g") {
             g1.genBlock();
+            std::cout << "YOOO1" << std::endl;
+            // g1.copyBoard();
+            std::cout << "YOOO2" << std::endl;
             g1.printBoard();
         } else if (command == "do") {
             g1.down();

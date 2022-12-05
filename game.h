@@ -21,9 +21,10 @@
 // #include "levelfour.h"
 
 class Game: public Subject{
-    Board board;
-    std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
+    Board board;
+    std::vector<std::vector<char>>prevBoard = std::vector<std::vector<char>>(height, std::vector<char>(width, '.')); /* 18 rows * 11 cols */
+    std::unique_ptr<AbstractLevel> level;
     int row, col;
     bool heavy, blind;
     std::unique_ptr<AbstractBlock> currBlock;
@@ -46,7 +47,9 @@ class Game: public Subject{
         void drop();
         void down();
         void rotate(bool ccw);
+        void copyBoard();
         char getState(int row, int col) const override;
+        char getPrevState(int row, int col) const;
         bool isHeavy();
         bool isBlind();
         void replaceCur(AbstractBlock* b);

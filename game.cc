@@ -32,13 +32,23 @@ Game::Game(int curLevel, std::string filename) {
             al = std::make_unique<LevelFour>().get();
             break;*/
 }
-
-
+void Game::copyBoard(){
+    for(int i = 0;i<height;i++){
+        for(int j = 0;j<width;j++){
+            prevBoard[i][j] = board.board[i][j]->getChar();
+        }
+    }
+}
+char Game::getPrevState(int row, int col) const{
+    // std::cout << "YOOO" << std::endl;
+    return prevBoard[row][col];
+}
 char Game::getState(int row, int col) const{
     return board.board[row][col]->getChar();
 }
 
 void Game::genBlock() {
+    copyBoard();
     currBlock = level->generateBlock(&board);
     
 }
@@ -97,22 +107,27 @@ bool Game::isBlind(){
 }
 
 void Game::left() {
+    copyBoard();
     currBlock->left();
 }
 
 void Game::right() {
+    copyBoard();
     currBlock->right();
 }
 
 void Game::down() {
+    copyBoard();
     currBlock->down();
 }
 
 void Game::rotate(bool ccw) {
+    copyBoard();
     currBlock->rotate(ccw);
 }
 
 void Game::drop() {
+    copyBoard();
     currBlock->drop();
     checkRows();
 }
