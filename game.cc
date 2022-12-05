@@ -6,7 +6,7 @@ void Game::printBoard() {
 }
 
 Game::Game(int curLevel, std::string filename):
-    currentLevel{curLevel} {
+    currentLevel{curLevel} , currBlock{nullptr} {
         filename = filename;
         if (curLevel == 0) {
             level = std::make_unique<LevelZero>(filename);
