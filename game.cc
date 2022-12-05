@@ -37,6 +37,14 @@ int Game::getLevel() {
     return currentLevel;
 }
 
+bool Game::getSpecial() {
+    return specialActionAvailable;
+}
+
+void Game::setSpecial(bool b) {
+    specialActionAvailable = b;
+}
+
 void Game::genBlock() {
     blocks.insert(blocks.begin(), level->generateBlock(&board));
     currBlock = blocks[0].get();
@@ -72,7 +80,8 @@ void Game::checkRows() {
         levelFourCounter = 0;
         score += (currentLevel + numOfRowsCleared) * (currentLevel + numOfRowsCleared);
         //prompt user for input on which type of speical power they wnat
-        specialAction();
+        // specialAction();
+        specialActionAvailable = true;
     }
     for (auto it = blocks.begin(); it != blocks.end(); ++it) {
         if (!((*it)->checkCells())) {
@@ -90,18 +99,9 @@ void Game::constructiveForce(){
     }
 }
 
-void Game::specialAction(){
-    
-
-    
-}
 
 bool Game::isHeavy(){
     return heavy;
-}
-
-bool Game::isBlind(){
-    return blind;
 }
 
 void Game::left() {

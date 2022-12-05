@@ -73,6 +73,25 @@ void Match::playMatch() {
                     }
                     game1.constructiveForce(); // TODO constructive force
                     // TODO print everything using jeffrey's work
+                    if (game1.specialActionAvailable) {
+                        game1.setSpecial(false);
+                        bool valid = false;
+                        while (!valid) {
+                            std::cout << "Choose your special action. (blind, heavy, force): ";
+                            std::string cmd;
+                            std::cin >> cmd;
+                            if (cmd == "blind") {
+                                
+                            } else if (cmd == "heavy") {
+
+                            } else if (cmd == "force") {
+
+                            } else {
+                                std::cout << "Invalid special action. Enter one of the above.";
+                            }
+                        }
+
+                    }
                     game1.printBoard();
 
                 } else {
