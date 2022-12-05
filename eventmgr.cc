@@ -28,12 +28,18 @@ void EventMgr::dispatch_command(std::string cmd, Game * instance, std::string ar
     }
 }
 
-std::pair<int, std::vector<std::string>> EventMgr::process_input() {
+std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
     std::pair<int, std::vector<std::string>> ret;
     std::vector<std::string> bytes;
     std::string cmd;
     std::string arg = "";
-    std::cin >> cmd;
+    if (!((*in) >> cmd)) {
+        if (in == &ifs) {
+            ifs.close();
+            in = &inp;
+        }
+        (*in) >> cmd;
+    }
     std::istringstream iss{cmd};
     int pref = 1;
     std::string suff;
@@ -43,12 +49,24 @@ std::pair<int, std::vector<std::string>> EventMgr::process_input() {
     iss >> suff;
     std::cout << suff << std::endl;
     suff = t.search(suff);
-    if (t.search(suff) == "norandom" || t.search(suff) == "sequence") {
-        std::cin >> arg;
+    if (suff == "sequence") {
+        (*in) >> arg;
+        ifs.open(arg, std::ifstream::in);
+        in = &ifs;
+        return fnp_input();
+    }
+    if (suff == "norandom") {
+        (*in) >> arg;
     }
     bytes.push_back(suff);
     bytes.push_back(arg);
     ret.first = pref;
     ret.second = bytes;
+
     return ret;
+}
+
+std::pair<int, std::vector<std::string>> EventMgr::process_input() {
+    
+    return fnp_input();
 }
