@@ -4,7 +4,9 @@
 #include "game.h"
 #include "eventmgr.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
+#include <string>
 #include <utility>
 
 class Match {
@@ -14,8 +16,9 @@ class Match {
     Game game2;
 
     public:
-        Match(int p1Level, int p2Level);
+        Match(int _p1Level, int _p2Level);
         void playMatch();
+        void restart();
 };
 
 #endif

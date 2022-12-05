@@ -86,6 +86,16 @@ void AbstractBlock::resetBoard(int t, int l, int orientation) {
     }      
 }
 
+void AbstractBlock::removeBlock(int t, int l) {
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            if (mask[currOrientation][i][j]) {
+                board->board[t+i][j+l]->setChar('.');
+            }
+        }
+    }
+}
+
 void AbstractBlock::updateBoard(int t, int l) {
   
     for(int i = 0; i < 4; i++) {
