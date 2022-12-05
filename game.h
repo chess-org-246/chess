@@ -13,11 +13,11 @@
 #include "subject.h"
 #include "abstractlevel.h"
 #include "cell.h"
-//#include "levelzero.h"
+#include "levelzero.h"
 #include "levelone.h"
-// #include "leveltwo.h"
-// #include "levelthree.h"
-// #include "levelfour.h"
+#include "leveltwo.h"
+#include "levelthree.h"
+#include "levelfour.h"
 
 class Game/*: public Subject*/{
     Board board;
@@ -44,6 +44,8 @@ class Game/*: public Subject*/{
         void drop();
         void down();
         void rotate(bool ccw);
+        void random();
+        void noRandom(std::string f);
         char getState(int row, int col);
         bool isHeavy();
         bool isBlind();

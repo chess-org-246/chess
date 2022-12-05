@@ -7,31 +7,21 @@ void Game::printBoard() {
 
 Game::Game(int curLevel, std::string filename):
     currentLevel{curLevel} {
-    filename = filename;
-        /*if (curLevel == 0) {
-            al = std::make_unique<LevelZero>(filename).get();
-            break;*/
-        if (curLevel == 1) {
+        filename = filename;
+        if (curLevel == 0) {
+            level = std::make_unique<LevelZero>(filename);
+        } else if (curLevel == 1) {
             level = std::make_unique<LevelOne>();
-        }
-       /*} else if (curLevel == 2){
+        } else if (curLevel == 2) {
             level = std::make_unique<LevelTwo>();
-        }
-        else if (curLevel == 3){
+        } else if (curLevel == 3) {
             level = std::make_unique<LevelThree>();
-        }
-        else if (curLevel == 4){
+        } else if (curLevel == 4) {
             level = std::make_unique<LevelFour>();
-        }*/
-        /*case 2:
-            al = std::make_unique<LevelTwo>().get();
-            break;
-        case 3:
-            al = std::make_unique<LevelThree>().get();
-            break; 
-        case 4:
-            al = std::make_unique<LevelFour>().get();
-            break;*/
+        } else {
+            throw ControlOutOfRange{};
+        }
+
 }
 
 
@@ -122,4 +112,16 @@ void Game::rotate(bool ccw) {
 void Game::drop() {
     blocks[0]->drop();
     checkRows();
+}
+
+void Game::random() {
+    if (currentLevel == 3 || currentLevel == 4) {
+        level->random();
+    } 
+}
+
+void Game::noRandom(std::string f) {
+    if (currentLevel == 3 || currentLevel == 4) {
+        level->noRandom(f);
+    } 
 }

@@ -10,4 +10,6 @@ class NoSpaceForBlock {};
 
 class RandomOutOfRange {};
 
+class ControlOutOfRange {};
+
 #endif
