@@ -23,8 +23,17 @@ Game::Game(int curLevel, std::string filename):
         }
 
 }
-
-
+void Game::copyBoard(){
+    for(int i = 0;i<height;i++){
+        for(int j = 0;j<width;j++){
+            prevBoard[i][j] = board.board[i][j]->getChar();
+        }
+    }
+}
+char Game::getPrevState(int row, int col) const{
+    // std::cout << "YOOO" << std::endl;
+    return prevBoard[row][col];
+}
 char Game::getState(int row, int col) const{
     return board.board[row][col]->getChar();
 }
@@ -46,6 +55,7 @@ void Game::setSpecial(bool b) {
 }
 
 void Game::genBlock() {
+    copyBoard();
     blocks.insert(blocks.begin(), level->generateBlock(&board));
     currBlock = blocks[0].get();
 }
@@ -105,27 +115,33 @@ bool Game::isHeavy(){
 }
 
 void Game::left() {
+    copyBoard();
     blocks[0]->left();
 }
 
 void Game::right() {
+    copyBoard();
     blocks[0]->right();
 }
 
 void Game::down() {
+    copyBoard();
     blocks[0]->down();
 }
 
 
 void Game::rotateCW() {
+    copyBoard();
     blocks[0]->rotate(true);
 }
 
 void Game::rotateCCW() {
+    copyBoard();
     blocks[0]->rotate(false);
 }
 
 void Game::drop() {
+    copyBoard();
     if (currBlock == nullptr) {
         genBlock();
     }

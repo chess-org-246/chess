@@ -20,9 +20,10 @@
 #include "levelfour.h"
 
 class Game: public Subject{
-    Board board;
-    std::unique_ptr<AbstractLevel> level;
     int height = 18, width = 11;
+    Board board;
+    std::vector<std::vector<char>>prevBoard = std::vector<std::vector<char>>(height, std::vector<char>(width, '.')); /* 18 rows * 11 cols */
+    std::unique_ptr<AbstractLevel> level;
     int row, col;
     int levelFourCounter = 0;
     int numOfBlocksPlaced = 0;
@@ -56,7 +57,10 @@ class Game: public Subject{
         bool levelHeavy();
         bool specialHeavy();
 
-        char getState(int row, int col);
+        void copyBoard();
+        char getState(int row, int col) const override;
+        char getPrevState(int row, int col) const;
+        
         int getScore();
         int getLevel();
         bool getSpecial();

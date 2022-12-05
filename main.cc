@@ -45,6 +45,9 @@ int main(/*int argc, char* argv[]*/) {
     while(std::cin >> command) {
         if (command == "g") {
             g1.genBlock();
+            std::cout << "YOOO1" << std::endl;
+            // g1.copyBoard();
+            std::cout << "YOOO2" << std::endl;
             g1.printBoard();
         } else if (command == "do") {
             g1.down();
@@ -74,19 +77,6 @@ int main(/*int argc, char* argv[]*/) {
             g1.noRandom(f);
         }
     }
-<<<<<<< HEAD
+
     */
-=======
-    for(size_t i = 0;i<textstack.size();i++){
-<<<<<<< HEAD
-    delete textstack[i];
-  }
->>>>>>> ff85e6b (added text and basic grahpics observer)
-=======
-        delete textstack[i];
-    }
-    for(size_t i = 0;i<graphstack.size();i++){
-        delete graphstack[i];
-    }
->>>>>>> d18abab (COLOURS DONT WORK)
 }
