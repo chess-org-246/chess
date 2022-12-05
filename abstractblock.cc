@@ -1,5 +1,7 @@
 #include "abstractblock.h"
 
+AbstractBlock::~AbstractBlock() {}
+
 void AbstractBlock::rotate(bool ccw) {
     int prev = currOrientation;
     currOrientation = ccw ? (currOrientation + 3) % 4 : (currOrientation + 1) % 4;

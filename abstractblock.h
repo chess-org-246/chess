@@ -16,6 +16,8 @@ class AbstractBlock {
         char blockType;
         int blockLevel;
     public:
+        virtual ~AbstractBlock();
+
         AbstractBlock(Board * board, int _blockLevel): 
             board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel} {};
         void updateBoard(int t, int l);
