@@ -116,7 +116,6 @@ char AbstractBlock::getBlockType () {
 bool AbstractBlock::checkCells() {
     for (int y = t; (y < t + 4 && y < 18); ++y) {
         for (int x = l; (x < l + 4 && x < 11); ++x) {
-            std::cout << "char: " << board->board[y][x]->getChar() << std::endl;
             if (mask[currOrientation][y - t][x - l] == 1) {
                 if (board->board[y][x]->getChar() == blockType) {
                     return true;

@@ -9,39 +9,40 @@ LevelZero::LevelZero(std::string filename):
     }
 }
 
-AbstractBlock* LevelZero::generateBlock(Board* board) {
-    AbstractBlock* b = nullptr;
-    // in here, make the right type of block
+std::unique_ptr<AbstractBlock> LevelZero::generateBlock(Board* board) {
+    std::unique_ptr<AbstractBlock> b;
     try {
-        switch (sequence[sequence_index]) {
-            case 'I':
-                b = std::make_unique<IBlock>(board).get();
-                break;
-            case 'J':
-                b = std::make_unique<JBlock>(board).get();
-                break;
-            case 'L':
-                b = std::make_unique<LBlock>(board).get();
-                break;
-            case 'O':
-                b = std::make_unique<OBlock>(board).get();
-                break;
-            case 'S':
-                b = std::make_unique<SBlock>(board).get();
-                break;
-            case 'T':
-                b = std::make_unique<TBlock>(board).get();
-                break;
-            case 'Z':
-                b = std::make_unique<ZBlock>(board).get();
-                break;
+        if (sequence[sequence_index] == 'I') {
+            b = std::make_unique<IBlock>(board, 1);
+        } else if (sequence[sequence_index] == 'J') {
+            b = std::make_unique<JBlock>(board, 1);
+        } else if (sequence[sequence_index] == 'L') {
+            b = std::make_unique<LBlock>(board, 1);
+        } else if (sequence[sequence_index] == 'O') {
+            b = std::make_unique<OBlock>(board, 1);
+        } else if (sequence[sequence_index] == 'S') {
+            b = std::make_unique<SBlock>(board, 1);
+        } else if (sequence[sequence_index] == 'T') {
+            b = std::make_unique<TBlock>(board, 1);
+        } else {
+            b = std::make_unique<ZBlock>(board, 1);
         }
         sequence_index++;
         if (sequence_index >= (int) sequence.size()) {
             sequence_index = 0;
         }
+        return b;
     } catch (NoSpaceForBlock) {
-        return nullptr;
+        throw;
     }
-    return b;
+    throw ControlOutOfRange {};
+}
+
+void LevelZero::random() {
+    return;
+}
+
+void LevelZero::noRandom(std::string f) {
+    f = f;
+    return;
 }
