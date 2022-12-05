@@ -1,9 +1,9 @@
 #include "game.h"
 
 
-void Game::printBoard() {
-    this->notifyObservers();
-}
+// void Game::printBoard() {
+//     this->notifyObservers();
+// }
 
 Game::Game(int curLevel, std::string filename):
     currentLevel{curLevel} , currBlock{nullptr} {

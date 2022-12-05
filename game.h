@@ -19,7 +19,7 @@
 #include "levelthree.h"
 #include "levelfour.h"
 
-class Game: public Subject{
+class Game{
     int height = 18, width = 11;
     Board board;
     std::vector<std::vector<char>>prevBoard = std::vector<std::vector<char>>(height, std::vector<char>(width, '.')); /* 18 rows * 11 cols */
@@ -37,7 +37,7 @@ class Game: public Subject{
     
     public:
         Game(int curLevel, std::string filename = "");
-        void printBoard();
+        // void printBoard();
         void checkRows();
         void genBlock();
         void constructiveForce();
@@ -58,9 +58,9 @@ class Game: public Subject{
         bool specialHeavy();
 
         void copyBoard();
-        char getState(int row, int col) const override;
+        char getState(int row, int col) const;
         char getPrevState(int row, int col) const;
-        
+
         int getScore();
         int getLevel();
         bool getSpecial();

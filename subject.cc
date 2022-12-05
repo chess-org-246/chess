@@ -13,9 +13,10 @@ void Subject::detach(Observer *o){
     }
 }
 
-void Subject::notifyObservers(){
+void Subject::notifyObservers(int playerNum){
     for(auto ob: observers){
-        ob->notify();
+        std::cout << "asdf\n";
+        ob->notify(playerNum);
     }
 }
 

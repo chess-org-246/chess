@@ -1,8 +1,8 @@
 #include "graphobserver.h"
 
 
-graphobserver::graphobserver(Game *game){
-    this->game = game;
+graphobserver::graphobserver(Match *match){
+    this->match = match;
     this->w = new Xwindow(width, height);
 
     w->fillRectangle(0, 0, width+100, height+100, 1);
@@ -16,22 +16,27 @@ graphobserver::graphobserver(Game *game){
     // }
     w->drawString(width/2-40, 30, "BIQUADRIS");
     // w->fillRectangle(40*10, 17*40, 40, 40, 1);
-    game->attach(this);
+    match->attach(this);
 }
 
-void graphobserver::notify(){
+void graphobserver::notify(int playerNum){
+    int offset = 0;
     std::cout << "YOE" << std::endl;
     char c;
+
+    if(playerNum == 2){
+        offset = 12;
+    }
     for (int i = 0; i < height/40; ++i) {
         for (int j = 0; j < width/40; ++j) {
             if(i < 18 && j < 11){
-                c = game->getState(i,j);
+                c = match->getState(i,j);
             }
             else{
                 c = '.';
             }
-            if((i< 18) && (j< 11) & (game->getState(i, j) != game->getPrevState(i, j))){
-            std::cout << "CURRENT:" << game->getState(i,j) << "  PREV:" << game->getPrevState(i,j) << std::endl;
+            if((i< 18) && (j< 11) & (match->getState(i, j+offset) != match->getPrevState(i, j+offset))){
+            // std::cout << "CURRENT:" << match->getState(i,j+offset) << "  PREV:" << match->getPrevState(i,j+offset) << std::endl;
                 // std::cout << "YO" << std::endl;
                 int val = 1;
                 if (c == 'I'){
@@ -55,7 +60,7 @@ void graphobserver::notify(){
                 else if (c == 'T'){
                     val = 7;
                 }
-                std::cout << c << " " << j << " " << i << " " << val << std::endl;
+                // std::cout << c << " " << j << " " << i << " " << val << std::endl;
                 // w->fillRectangle(i*40, 0, 1, height, 0);
                 // w->fillRectangle(0, j*40, 440, 1, 0);
 
@@ -67,6 +72,6 @@ void graphobserver::notify(){
 }
 
 graphobserver::~graphobserver(){
-    game->detach(this);
+    match->detach(this);
     delete this->w;
 }

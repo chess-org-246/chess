@@ -3,18 +3,19 @@
 #include "observer.h"
 // #include "window.h"
 #include "game.h"
+#include "match.h"
 
 
 class textobserver: public Observer{
-    Game* game;
+    Match* match;
     std::ostream &out = std::cout;
     // int top, bottom, left, right;
 
     public:
         ~textobserver();
-        textobserver(Game* game); 
+        textobserver(Match * match); 
             // studio{studio}, top{top}, bottom{bottom}, left{left}, right{right}{};
-        void notify() override;
+        void notify(int playerNum) override;
 };
 
 #endif
