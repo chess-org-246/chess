@@ -4,10 +4,14 @@
 #include <utility>
 #include <vector>
 #include <string>
+#include "match.h"
 #include "eventmgr.h"
 
 
 int main(/*int argc, char* argv[]*/) {
+    Match m {1, 1};
+    m.playMatch();
+
     /* Game g1{1};
     EventMgr e;
     std::pair<int, std::vector<std::string>> p;

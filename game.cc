@@ -29,6 +29,10 @@ char Game::getState(int row, int col){
     return board.board[row][col]->getChar();
 }
 
+int Game::getScore() {
+    return score;
+}
+
 void Game::genBlock() {
     blocks.insert(blocks.begin(), level->generateBlock(&board));
     currBlock = blocks[0].get();
@@ -57,11 +61,11 @@ void Game::checkRows() {
     }
     if (numOfRowsCleared == 0) {
         levelFourCounter++;
-    }
-    else if(numOfRowsCleared == 1){
+    } else if(numOfRowsCleared == 1){
         score += (currentLevel + 1) * (currentLevel + 1);
-    }
-    else if(numOfRowsCleared >= 2){
+        levelFourCounter = 0;
+    } else if(numOfRowsCleared >= 2){
+        levelFourCounter = 0;
         score += (currentLevel + numOfRowsCleared) * (currentLevel + numOfRowsCleared);
         //prompt user for input on which type of speical power they wnat
         specialAction();
@@ -76,7 +80,10 @@ void Game::checkRows() {
 }
 
 void Game::constructiveForce(){
-
+    if (currentLevel == 4 && levelFourCounter >= 5) {
+        levelFourCounter = 0;
+        // TODO spawn obstacle
+    }
 }
 
 void Game::specialAction(){
@@ -133,4 +140,71 @@ void Game::noRandom(std::string f) {
     if (currentLevel == 3 || currentLevel == 4) {
         level->noRandom(f);
     } 
+}
+
+void Game::levelUp() {
+    if (0 <= currentLevel && currentLevel <= 3) {
+        currentLevel++;
+        switch (currentLevel) {
+            case 1:
+                level = std::make_unique<LevelOne>();
+                break;
+            case 2:
+                level = std::make_unique<LevelTwo>();
+                break;
+            case 3:
+                level = std::make_unique<LevelThree>();
+                break;
+            case 4:
+                level = std::make_unique<LevelFour>();
+                break;
+        }
+    }
+}
+
+void Game::levelDown(std::string f) {
+    if (1 <= currentLevel && currentLevel <= 4) {
+        currentLevel--;
+        switch (currentLevel) {
+            case 0:
+                level = std::make_unique<LevelZero>(f);
+                break;
+            case 1:
+                level = std::make_unique<LevelOne>();
+                break;
+            case 2:
+                level = std::make_unique<LevelTwo>();
+                break;
+            case 3:
+                level = std::make_unique<LevelThree>();
+                break;
+        }
+    }
+}
+
+// return true if not dropped
+// returjn false if dropped (turn is over)
+bool Game::levelHeavy() {
+    if (currentLevel >= 3) {
+        int prev = blocks[0]->getT();
+        blocks[0]->down();
+        if (blocks[0]->getT() == prev) {
+            blocks[0]->drop();
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Game::specialHeavy() {
+    if (heavy) {
+        int prev = blocks[0]->getT();
+        blocks[0]->down();
+        blocks[0]->down();
+        if (blocks[0]->getT() == prev) {
+            blocks[0]->drop();
+            return false;
+        }
+    }
+    return true;
 }

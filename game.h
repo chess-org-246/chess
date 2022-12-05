@@ -28,7 +28,8 @@ class Game/*: public Subject*/{
     int numOfBlocksPlaced = 0;
     int currentLevel = 0;
     int score = 0;
-    bool heavy, blind;
+    bool heavy = false;
+    bool blind = false;
     std::vector<std::unique_ptr<AbstractBlock>> blocks;
     AbstractBlock * currBlock;
     
@@ -46,9 +47,16 @@ class Game/*: public Subject*/{
         void down();
         void rotateCW();
         void rotateCCW();
+
         void random();
         void noRandom(std::string f);
+        void levelUp();
+        void levelDown(std::string f);
+        bool levelHeavy();
+        bool specialHeavy();
+
         char getState(int row, int col);
+        int getScore();
         bool isHeavy();
         bool isBlind();
         void replaceCur(AbstractBlock* b);
