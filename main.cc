@@ -1,9 +1,26 @@
 #include "game.h"
+#include "trie.h"
 #include <iostream>
+#include "eventmgr.h"
 
 
 int main(/*int argc, char* argv[]*/) {
-    Game g1{4};
+    Game g1{1};
+    EventMgr e;
+    e.register_command("left", &Game::left);
+    e.register_command("right", &Game::right);
+    e.register_command("down", &Game::down);
+    e.register_command("clockwise", &Game::rotateCW);
+    e.register_command("counterclockwise", &Game::rotateCCW);
+    e.register_command("drop", &Game::drop);
+    e.register_command("generate", &Game::genBlock);
+    std::string command;
+    while(std::cin >> command) {
+        e.dispatch_command(command, &g1);
+        g1.printBoard();
+    }
+    
+/*
     std::string command; 
     while(std::cin >> command) {
         if (command == "g") {
@@ -37,4 +54,5 @@ int main(/*int argc, char* argv[]*/) {
             g1.noRandom(f);
         }
     }
+    */
 }

@@ -105,13 +105,19 @@ void Game::down() {
     blocks[0]->down();
 }
 
-void Game::rotate(bool ccw) {
-    blocks[0]->rotate(ccw);
+
+void Game::rotateCW() {
+    blocks[0]->rotate(true);
+}
+
+void Game::rotateCCW() {
+    blocks[0]->rotate(false);
 }
 
 void Game::drop() {
     blocks[0]->drop();
     checkRows();
+    currBlock = nullptr;
 }
 
 void Game::random() {
