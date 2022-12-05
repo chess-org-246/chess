@@ -43,7 +43,8 @@ class Game/*: public Subject*/{
         void right();
         void drop();
         void down();
-        void rotate(bool ccw);
+        void rotateCW();
+        void rotateCCW();
         char getState(int row, int col);
         bool isHeavy();
         bool isBlind();

@@ -108,11 +108,19 @@ void Game::down() {
     currBlock->down();
 }
 
-void Game::rotate(bool ccw) {
-    currBlock->rotate(ccw);
+void Game::rotateCW() {
+    currBlock->rotate(true);
+}
+
+void Game::rotateCCW() {
+    currBlock->rotate(false);
 }
 
 void Game::drop() {
+    if (currBlock == nullptr) {
+        genBlock();
+    }
     currBlock->drop();
     checkRows();
+    currBlock = nullptr;
 }
