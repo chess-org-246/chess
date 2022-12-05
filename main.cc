@@ -9,7 +9,7 @@
 
 
 int main(/*int argc, char* argv[]*/) {
-    Match m {1, 1};
+    Match m {0, 0};
     m.playMatch();
 
     /* Game g1{1};

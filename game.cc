@@ -213,6 +213,18 @@ bool Game::specialHeavy() {
     return true;
 }
 
+void Game::makeBlind() {
+    for (int y = 2; y <= 11; ++y) {
+        for (int x = 2; x <= 8; ++x) {
+            board.board[y][x]->setHidden(true);
+        }
+    }
+}
+
+void Game::makeHeavy() {
+    heavy = true;
+}
+
 void Game::replaceI() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());

@@ -30,11 +30,11 @@ class Game/*: public Subject*/{
     int score = 0;
     bool specialActionAvailable = false;
     bool heavy = false;
-    bool blind = false;
     std::vector<std::unique_ptr<AbstractBlock>> blocks;
     AbstractBlock * currBlock;
     
     public:
+        Game();
         Game(int curLevel, std::string filename = "");
         void printBoard();
         void checkRows();
@@ -55,6 +55,9 @@ class Game/*: public Subject*/{
         void levelDown(std::string f);
         bool levelHeavy();
         bool specialHeavy();
+
+        void makeBlind();
+        void makeHeavy();
 
         char getState(int row, int col);
         int getScore();

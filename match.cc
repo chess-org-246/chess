@@ -1,7 +1,7 @@
 #include "match.h"
 
 Match::Match(int _p1Level, int _p2Level):
-    highScore{0}, game1{_p1Level}, game2{_p2Level} {
+    highScore{0}, game1{_p1Level, "sequence1.txt"}, game2{_p2Level, "sequence1.txt"} {
         em.register_command("left", &Game::left);
         em.register_command("right", &Game::right);
         em.register_command("down", &Game::down);
@@ -36,12 +36,12 @@ void Match::playMatch() {
             try {
                 if (p1) {
                     game1.printBoard();
+                    game2.printBoard();
                     game2.genBlock(); // generating OTHER player's block so they can see during their turn
                     // TODO something something to take input for game 1
                     bool p1turn = true;
                     while (p1turn) {
                         // take input
-                        std::cout << "p1 level: " << game1.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {
@@ -82,12 +82,29 @@ void Match::playMatch() {
                             std::cin >> cmd;
                             if (cmd == "blind") {
                                 valid = true;
-                                //game2.makeBlind();
+                                game2.makeBlind();
                             } else if (cmd == "heavy") {
                                 valid = true;
-                                //game2.makeHeavy();
+                                game2.makeHeavy();
                             } else if (cmd == "force") {
                                 valid = true;
+                                std::cout << "Enter the block you want to give your opponent: ";
+                                std::cin >> cmd;
+                                if (cmd == "I" || cmd == "i") {
+                                    game2.replaceI();
+                                } else if (cmd == "J" || cmd == "j") {
+                                    game2.replaceJ();
+                                } else if (cmd == "L" || cmd == "l") {
+                                    game2.replaceL();
+                                } else if (cmd == "O" || cmd == "o") {
+                                    game2.replaceO();
+                                } else if (cmd == "S" || cmd == "s") {
+                                    game2.replaceS();
+                                } else if (cmd == "T" || cmd == "t") {
+                                    game2.replaceT();
+                                } else if (cmd == "Z" || cmd == "z") {
+                                    game2.replaceZ();
+                                }
                             } else {
                                 std::cout << "Invalid special action. Enter one of the above.";
                             }
@@ -103,7 +120,6 @@ void Match::playMatch() {
                     bool p2turn = true;
                     while (p2turn) {
                         // take input
-                        std::cout << "p2 level: " << game2.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {
@@ -136,16 +152,54 @@ void Match::playMatch() {
                     }
                     game2.constructiveForce(); // TODO constructive force
                     // TODO print everything using jeffrey's work
+                    if (game2.getSpecial()) {
+                        game2.setSpecial(false);
+                        bool valid = false;
+                        while (!valid) {
+                            std::cout << "Choose your special action. (blind, heavy, force): ";
+                            std::string cmd;
+                            std::cin >> cmd;
+                            if (cmd == "blind") {
+                                valid = true;
+                                game1.makeBlind();
+                            } else if (cmd == "heavy") {
+                                valid = true;
+                                game1.makeHeavy();
+                            } else if (cmd == "force") {
+                                valid = true;
+                                std::cout << "Enter the block you want to give your opponent: ";
+                                std::cin >> cmd;
+                                if (cmd == "I" || cmd == "i") {
+                                    game1.replaceI();
+                                } else if (cmd == "J" || cmd == "j") {
+                                    game1.replaceJ();
+                                } else if (cmd == "L" || cmd == "l") {
+                                    game1.replaceL();
+                                } else if (cmd == "O" || cmd == "o") {
+                                    game1.replaceO();
+                                } else if (cmd == "S" || cmd == "s") {
+                                    game1.replaceS();
+                                } else if (cmd == "T" || cmd == "t") {
+                                    game1.replaceT();
+                                } else if (cmd == "Z" || cmd == "z") {
+                                    game1.replaceZ();
+                                }
+                            } else {
+                                std::cout << "Invalid special action. Enter one of the above.";
+                            }
+                        }
+
+                    }
                     game2.printBoard();
                 }
             } catch (NoSpaceForBlock) {
                 run = false;
                 if (p1) {
-                    std::cout << "p1 lost\n";
-                    // p1 lost
-                } else {
                     std::cout << "p2 lost\n";
                     // p2 lost
+                } else {
+                    std::cout << "p1 lost\n";
+                    // p1 lost
                 }
                 if (game1.getScore() > highScore) {
                     highScore = game1.getScore();

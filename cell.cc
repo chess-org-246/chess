@@ -6,7 +6,15 @@ bool Cell::getHidden() {
     return isHidden;
 }
 
+void Cell::setHidden(bool b) {
+    isHidden = b;
+}
+
 char Cell::getChar() {
+    if (isHidden) {
+        isHidden = false;
+        return '?';
+    }
     return curChar;
 }
 
