@@ -46,9 +46,16 @@ class Game/*: public Subject*/{
         void down();
         void rotateCW();
         void rotateCCW();
+
         void random();
         void noRandom(std::string f);
+        void levelUp();
+        void levelDown(std::string f);
+        bool levelHeavy();
+        bool specialHeavy();
+
         char getState(int row, int col);
+        int getScore();
         bool isHeavy();
         bool isBlind();
         void replaceCur(AbstractBlock* b);

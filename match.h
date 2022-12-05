@@ -6,6 +6,7 @@
 #include "trie.h"
 #include <iostream>
 #include <sstream>
+#include <utility>
 
 class Match {
     int highScore;
