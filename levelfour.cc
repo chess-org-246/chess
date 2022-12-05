@@ -30,7 +30,7 @@ std::unique_ptr<AbstractBlock> LevelFour::generateBlock(Board* board) {
             int r = (rand() % 9) + 1;
 
             if (r == 1) {
-                b = std::make_unique<IBlock>(board, 4,);
+                b = std::make_unique<IBlock>(board, 4);
                 return b;
             } else if (r == 2) {
                 b = std::make_unique<JBlock>(board, 4);

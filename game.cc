@@ -185,11 +185,11 @@ void Game::levelDown(std::string f) {
 // return true if not dropped
 // returjn false if dropped (turn is over)
 bool Game::levelHeavy() {
-    if (level >= 3) {
-        int prev = blocks[0].getT();
-        blocks[0].down();
-        if (blocks[0].getT() == prev) {
-            blocks[0].drop();
+    if (currentLevel >= 3) {
+        int prev = blocks[0]->getT();
+        blocks[0]->down();
+        if (blocks[0]->getT() == prev) {
+            blocks[0]->drop();
             return false;
         }
     }
@@ -198,11 +198,11 @@ bool Game::levelHeavy() {
 
 bool Game::specialHeavy() {
     if (heavy) {
-        int prev = blocks[0].getT();
-        blocks[0].down();
-        blocks[0].down();
-        if (blocks[0].getT() == prev) {
-            blocks[0].drop();
+        int prev = blocks[0]->getT();
+        blocks[0]->down();
+        blocks[0]->down();
+        if (blocks[0]->getT() == prev) {
+            blocks[0]->drop();
             return false;
         }
     }

@@ -28,7 +28,8 @@ class Game/*: public Subject*/{
     int numOfBlocksPlaced = 0;
     int currentLevel = 0;
     int score = 0;
-    bool heavy, blind;
+    bool heavy = false;
+    bool blind = false;
     std::vector<std::unique_ptr<AbstractBlock>> blocks;
     AbstractBlock * currBlock;
     

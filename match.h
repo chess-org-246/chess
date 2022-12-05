@@ -2,8 +2,7 @@
 #define MATCH_H
 
 #include "game.h"
-#include "eventmanager.h"
-#include "trie.h"
+#include "eventmgr.h"
 #include <iostream>
 #include <sstream>
 #include <utility>
