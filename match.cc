@@ -12,9 +12,8 @@ Match::Match(int _p1Level, int _p2Level):
         em.register_command("leveldown", &Game::levelDown); // TODO: add parameter for different players
         em.register_command("norandom", &Game::noRandom);
         em.register_command("random", &Game::random);
-
-        /*em.register_command("sequence", &Game::sequence);*/
-        em.register_command("restart", &Match::restart);
+        em.register_command("sequence", (void (Game::*)(void)) nullptr);
+        //em.register_command("restart", &Match::restart);
         em.register_command("I", &Game::replaceI);
         em.register_command("J", &Game::replaceJ);
         em.register_command("L", &Game::replaceL);
