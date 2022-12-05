@@ -1,7 +1,7 @@
 #include "match.h"
 
 Match::Match(int p1Level, int p2Level):
-    high_score_1{0}, high_score_2{0}, game1{p1Level}, game2{p2Level}, input{} {}
+    highScore{0}, game1{p1Level}, game2{p2Level} {}
 
 Match::playMatch() {
     // this function is gonna have all the game logic
