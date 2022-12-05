@@ -1,6 +1,8 @@
 #include "game.h"
 #include "trie.h"
 #include <iostream>
+#include <sstream>
+#include <cstdlib>
 #include <utility>
 #include <vector>
 #include <string>
@@ -8,8 +10,44 @@
 #include "eventmgr.h"
 
 
-int main(/*int argc, char* argv[]*/) {
-    Match m {0, 0};
+int main(int argc, char* argv[]) {
+    bool makeGraphics = true;
+    int startLevel = 0;
+    int randSeed = 0;
+    std::string f1 = "sequence1.txt";
+    std::string f2 = "sequence2.txt";
+    if (argc > 1) {
+        std::cout << "args\n";
+        int index = 1;
+        while (index < argc) {
+            std::string cmd = argv[index];
+            if (cmd == "-text") {
+                makeGraphics = false;
+            } else if (cmd == "-seed") {
+                ++index;
+                std::istringstream iss {cmd};
+                iss >> randSeed;
+            } else if (cmd == "-scriptfile1") {
+                ++index;
+                f1 = argv[index];
+                std::cout << f1 << std::endl;
+            } else if (cmd == "-scriptfile2") {
+                ++index;
+                f2 = argv[index];
+                std::cout << f2 << std::endl;
+            } else if (cmd == "-startlevel") {
+                ++index;
+                std::istringstream iss {cmd};
+                iss >> startLevel;
+            }
+            ++index;
+        }
+    }
+    Match m = {startLevel, f1, startLevel, f2};
+    srand(randSeed);
+    if (makeGraphics) {
+        // make graphics observer
+    }
     m.playMatch();
 
     /* Game g1{1};

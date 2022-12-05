@@ -1,7 +1,7 @@
 #include "match.h"
 
-Match::Match(int _p1Level, int _p2Level):
-    highScore{0}, game1{_p1Level, "sequence1.txt"}, game2{_p2Level, "sequence1.txt"} {
+Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
+    highScore{0}, game1{_p1Level, f1}, game2{_p2Level, f2} {
         em.register_command("left", &Game::left);
         em.register_command("right", &Game::right);
         em.register_command("down", &Game::down);

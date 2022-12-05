@@ -16,7 +16,7 @@ class Match {
     Game game2;
 
     public:
-        Match(int _p1Level, int _p2Level);
+        Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
         void playMatch();
         void restart();
 };
