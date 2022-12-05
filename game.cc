@@ -31,7 +31,7 @@ char Game::getState(int row, int col){
 
 void Game::genBlock() {
     blocks.insert(blocks.begin(), level->generateBlock(&board));
-    
+    currBlock = blocks[0].get();
 }
 
 void Game::checkRows() {
@@ -115,9 +115,12 @@ void Game::rotateCCW() {
 }
 
 void Game::drop() {
+    if (currBlock == nullptr) {
+        genBlock();
+    }
     blocks[0]->drop();
-    checkRows();
     currBlock = nullptr;
+    checkRows();
 }
 
 void Game::random() {

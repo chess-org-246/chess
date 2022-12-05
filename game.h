@@ -30,6 +30,7 @@ class Game/*: public Subject*/{
     int score = 0;
     bool heavy, blind;
     std::vector<std::unique_ptr<AbstractBlock>> blocks;
+    AbstractBlock * currBlock;
     
     public:
         Game(int curLevel, std::string filename = "");
