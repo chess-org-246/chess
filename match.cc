@@ -1,7 +1,7 @@
 #include "match.h"
 
-Match::Match(int p1Level, int p2Level):
-    highScore{0}, game1{p1Level}, game2{p2Level} {
+Match::Match(int _p1Level, int _p2Level):
+    highScore{0}, game1{_p1Level}, game2{_p2Level} {
         em.register_command("left", &Game::left);
         em.register_command("right", &Game::right);
         em.register_command("down", &Game::down);
@@ -12,14 +12,16 @@ Match::Match(int p1Level, int p2Level):
         em.register_command("leveldown", &Game::levelDown); // TODO: add parameter for different players
         em.register_command("norandom", &Game::noRandom);
         em.register_command("random", &Game::random);
-        /*em.register_command("sequence", &Game::sequence);
-        em.register_command("I", &Game::restart);
-        em.register_command("J", &Game::restart);
-        em.register_command("L", &Game::restart);
-        em.register_command("O", &Game::restart);
-        em.register_command("S", &Game::restart);
-        em.register_command("Z", &Game::restart);
-        em.register_command("T", &Game::restart);*/
+
+        /*em.register_command("sequence", &Game::sequence);*/
+        em.register_command("restart", &Match::restart);
+        em.register_command("I", &Game::replaceI);
+        em.register_command("J", &Game::replaceJ);
+        em.register_command("L", &Game::replaceL);
+        em.register_command("O", &Game::replaceO);
+        em.register_command("S", &Game::replaceS);
+        em.register_command("T", &Game::replaceT);
+        em.register_command("Z", &Game::replaceZ);
 }
 
 void Match::playMatch() {
@@ -40,12 +42,17 @@ void Match::playMatch() {
                     bool p1turn = true;
                     while (p1turn) {
                         // take input
+                        std::cout << "p1 level: " << game1.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         for (int i = 0; i < input.first; ++i) {
-                            if (input.second[1] != "") {
-                                em.dispatch_command(input.second[0], &game1, input.second[1]);
+                            if (input.second[0] == "leveldown") {
+                                game1.levelDown("sequence1.txt");
                             } else {
-                                em.dispatch_command(input.second[0], &game1);
+                                if (input.second[1] != "") {
+                                    em.dispatch_command(input.second[0], &game1, input.second[1]);
+                                } else {
+                                    em.dispatch_command(input.second[0], &game1);
+                                }
                             }
                         }
                         // apply both heavies
@@ -76,12 +83,17 @@ void Match::playMatch() {
                     bool p2turn = true;
                     while (p2turn) {
                         // take input
+                        std::cout << "p2 level: " << game2.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         for (int i = 0; i < input.first; ++i) {
-                            if (input.second[1] != "") {
-                                em.dispatch_command(input.second[0], &game2, input.second[1]);
+                            if (input.second[0] == "leveldown") {
+                                game2.levelDown("sequence2.txt");
                             } else {
-                                em.dispatch_command(input.second[0], &game2);
+                                if (input.second[1] != "") {
+                                    em.dispatch_command(input.second[0], &game2, input.second[1]);
+                                } else {
+                                    em.dispatch_command(input.second[0], &game2);
+                                }
                             }
                         }
                         // apply both heavies
@@ -127,3 +139,9 @@ void Match::playMatch() {
         }
     }
 }
+
+void Match::restart() {
+    game1 = {0, "sequence1.txt"};
+    game2 = {0, "sequence1.txt"};
+}
+

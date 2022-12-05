@@ -22,6 +22,7 @@ class AbstractBlock {
             board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel} {};
         void updateBoard(int t, int l);
         void resetBoard(int t, int l, int orientation);
+        void removeBlock(int t, int l);
         bool testCollisions(int t, int l, int prevmask);
         void left();
         void right();

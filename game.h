@@ -57,9 +57,16 @@ class Game/*: public Subject*/{
 
         char getState(int row, int col);
         int getScore();
+        int getLevel();
         bool isHeavy();
         bool isBlind();
-        void replaceCur(AbstractBlock* b);
+        void replaceI();
+        void replaceJ();
+        void replaceL();
+        void replaceO();
+        void replaceS();
+        void replaceT();
+        void replaceZ(); 
 };
 
 #endif 
