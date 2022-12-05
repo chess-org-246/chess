@@ -5,7 +5,7 @@
 class OBlock : public AbstractBlock {
     void init_mask();
     public:
-    OBlock(Board * board);
+    OBlock(Board * board, int blockLevel);
     
 };
 

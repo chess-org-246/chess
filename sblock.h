@@ -5,7 +5,7 @@
 class SBlock : public AbstractBlock {
     void init_mask();
     public:
-    SBlock(Board * board);
+    SBlock(Board * board, int _blockLevel);
     
 };
 

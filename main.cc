@@ -21,7 +21,6 @@ int main(/*int argc, char* argv[]*/) {
     }
     
 /*
-    
     std::string command; 
     while(std::cin >> command) {
         if (command == "g") {
@@ -46,6 +45,13 @@ int main(/*int argc, char* argv[]*/) {
         } else if (command == "ccw") {
             g1.rotate(true);
             g1.printBoard();
+        } else if (command == "random") {
+            g1.random();
+        } else if (command == "norandom") {
+            std::string f;
+            std::cin >> f;
+            std::cout << "norandom " << f << std::endl;
+            g1.noRandom(f);
         }
     }
     */

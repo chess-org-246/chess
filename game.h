@@ -13,11 +13,11 @@
 #include "subject.h"
 #include "abstractlevel.h"
 #include "cell.h"
-//#include "levelzero.h"
+#include "levelzero.h"
 #include "levelone.h"
-// #include "leveltwo.h"
-// #include "levelthree.h"
-// #include "levelfour.h"
+#include "leveltwo.h"
+#include "levelthree.h"
+#include "levelfour.h"
 
 class Game/*: public Subject*/{
     Board board;
@@ -29,7 +29,7 @@ class Game/*: public Subject*/{
     int currentLevel = 0;
     int score = 0;
     bool heavy, blind;
-    std::unique_ptr<AbstractBlock> currBlock;
+    std::vector<std::unique_ptr<AbstractBlock>> blocks;
     
     public:
         Game(int curLevel, std::string filename = "");
@@ -45,6 +45,8 @@ class Game/*: public Subject*/{
         void down();
         void rotateCW();
         void rotateCCW();
+        void random();
+        void noRandom(std::string f);
         char getState(int row, int col);
         bool isHeavy();
         bool isBlind();

@@ -1,7 +1,7 @@
 #include "zblock.h"
 #include "error.h"
 
-ZBlock::ZBlock(Board * board) : AbstractBlock{board} {
+ZBlock::ZBlock(Board * board, int _blockLevel) : AbstractBlock{board, _blockLevel} {
     init_mask();
     blockType = 'Z';
     if (testCollisions(t, l, currOrientation)) {

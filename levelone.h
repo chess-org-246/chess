@@ -17,7 +17,8 @@ class Board;
 class LevelOne : public AbstractLevel {
     public:
         std::unique_ptr<AbstractBlock> generateBlock(Board* board);
-
+        void random() override;
+        void noRandom(std::string f) override;
 };
 
 #endif

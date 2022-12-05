@@ -5,7 +5,7 @@
 class ZBlock : public AbstractBlock {
     void init_mask();
     public:
-    ZBlock(Board * board);
+    ZBlock(Board * board, int _blockLevel);
     
 };
 

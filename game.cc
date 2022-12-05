@@ -5,32 +5,23 @@ void Game::printBoard() {
     board.printBoard();
 }
 
-Game::Game(int curLevel, std::string filename) {
-    filename = filename;
-        /*if (curLevel == 0) {
-            al = std::make_unique<LevelZero>(filename).get();
-            break;*/
-        if (curLevel == 1) {
+Game::Game(int curLevel, std::string filename):
+    currentLevel{curLevel} {
+        filename = filename;
+        if (curLevel == 0) {
+            level = std::make_unique<LevelZero>(filename);
+        } else if (curLevel == 1) {
             level = std::make_unique<LevelOne>();
-        }
-       /*} else if (curLevel == 2){
+        } else if (curLevel == 2) {
             level = std::make_unique<LevelTwo>();
-        }
-        else if (curLevel == 3){
+        } else if (curLevel == 3) {
             level = std::make_unique<LevelThree>();
-        }
-        else if (curLevel == 4){
+        } else if (curLevel == 4) {
             level = std::make_unique<LevelFour>();
-        }*/
-        /*case 2:
-            al = std::make_unique<LevelTwo>().get();
-            break;
-        case 3:
-            al = std::make_unique<LevelThree>().get();
-            break; 
-        case 4:
-            al = std::make_unique<LevelFour>().get();
-            break;*/
+        } else {
+            throw ControlOutOfRange{};
+        }
+
 }
 
 
@@ -39,7 +30,7 @@ char Game::getState(int row, int col){
 }
 
 void Game::genBlock() {
-    currBlock = level->generateBlock(&board);
+    blocks.insert(blocks.begin(), level->generateBlock(&board));
     
 }
 
@@ -53,7 +44,6 @@ void Game::checkRows() {
             }
         }
         if(fullRow) {
-            std::cout << "hullo" << std::endl;
             board.board.erase(board.board.begin() + i);
             std::vector<std::unique_ptr<Cell>> vec;
             for (int k = 0; k < width; ++k) {
@@ -76,6 +66,13 @@ void Game::checkRows() {
         //prompt user for input on which type of speical power they wnat
         specialAction();
     }
+    for (auto it = blocks.begin(); it != blocks.end(); ++it) {
+        if (!((*it)->checkCells())) {
+            score += (1 + (*it)->getBlockLevel()) * (1 + (*it)->getBlockLevel());
+            it = blocks.erase(it);
+            --it;
+        }
+    }
 }
 
 void Game::constructiveForce(){
@@ -97,30 +94,40 @@ bool Game::isBlind(){
 }
 
 void Game::left() {
-    currBlock->left();
+    blocks[0]->left();
 }
 
 void Game::right() {
-    currBlock->right();
+    blocks[0]->right();
 }
 
 void Game::down() {
-    currBlock->down();
+    blocks[0]->down();
 }
 
+
 void Game::rotateCW() {
-    currBlock->rotate(true);
+    blocks[0]->rotate(true);
 }
 
 void Game::rotateCCW() {
-    currBlock->rotate(false);
+    blocks[0]->rotate(false);
 }
 
 void Game::drop() {
-    if (currBlock == nullptr) {
-        genBlock();
-    }
-    currBlock->drop();
+    blocks[0]->drop();
     checkRows();
     currBlock = nullptr;
+}
+
+void Game::random() {
+    if (currentLevel == 3 || currentLevel == 4) {
+        level->random();
+    } 
+}
+
+void Game::noRandom(std::string f) {
+    if (currentLevel == 3 || currentLevel == 4) {
+        level->noRandom(f);
+    } 
 }

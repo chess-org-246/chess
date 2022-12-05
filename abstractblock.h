@@ -14,8 +14,12 @@ class AbstractBlock {
         int t;
         int l;
         char blockType;
+        int blockLevel;
     public:
-        AbstractBlock(Board * board) : board{board}, currOrientation{0}, t{0}, l{0} {};
+        virtual ~AbstractBlock();
+
+        AbstractBlock(Board * board, int _blockLevel): 
+            board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel} {};
         void updateBoard(int t, int l);
         void resetBoard(int t, int l, int orientation);
         bool testCollisions(int t, int l, int prevmask);
@@ -24,9 +28,12 @@ class AbstractBlock {
         void rotate(bool ccw);
         void down();
         void drop();
+        bool checkCells();
 
         int getT();
         int getL();
+        int getBlockLevel();
+        char getBlockType();
 };
 
 #endif

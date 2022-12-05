@@ -12,9 +12,13 @@
 #include "tblock.h"
 #include "zblock.h"
 
+class Board;
+
 class LevelTwo : public AbstractLevel {
     public:
-        AbstractBlock* generateBlock(Board* board);
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board);
+        void random() override;
+        void noRandom(std::string f) override;
 };
 
 #endif
