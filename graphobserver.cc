@@ -35,6 +35,9 @@ graphobserver::graphobserver(Match *match){
 }
 
 void graphobserver::notify(){
+    if (match->getCurrPrompt() != "") {
+        return;
+    }
     //filling the dictionary with values
     dict['I'] = 5;
     dict['J'] = 4;

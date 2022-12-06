@@ -14,6 +14,7 @@ typedef void (Game::*callback)(void);
 
 typedef void (Game::*callback2)(std::string);
 
+
 class EventMgr {
     Trie t;
     // input stream for cmd line
@@ -39,6 +40,8 @@ class EventMgr {
         void dispatch_command(std::string cmd, Game * instance, std::string arg);
         // function to fetch and parse input from input streams
         std::pair<int, std::vector<std::string>> fnp_input();
+        // function to grab a single spaced elimited string from input
+        std::string fetch_byte();
 
 };
 
