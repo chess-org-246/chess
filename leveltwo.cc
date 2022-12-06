@@ -3,7 +3,7 @@
 std::unique_ptr<AbstractBlock> LevelTwo::generateBlock(Board* board) {
     std::unique_ptr<AbstractBlock> b;
 
-    int r = (rand() % 7) + 1;
+        int r = (rand() % 7) + 1;
     try {
         if (r == 1) {
             b = std::make_unique<IBlock>(board, 2);

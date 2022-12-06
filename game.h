@@ -63,6 +63,7 @@ class Game{
 
         int getScore();
         int getLevel();
+        std::vector<std::vector<char>> getNext();
         bool getSpecial();
         void setSpecial(bool b);
 

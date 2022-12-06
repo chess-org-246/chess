@@ -1,5 +1,7 @@
 #ifndef TEXTOB_H
 #define TEXTOB_H
+#include <iomanip>  
+#include <vector>
 #include "observer.h"
 // #include "window.h"
 #include "game.h"
@@ -15,7 +17,7 @@ class textobserver: public Observer{
         ~textobserver();
         textobserver(Match * match); 
             // studio{studio}, top{top}, bottom{bottom}, left{left}, right{right}{};
-        void notify(int playerNum) override;
+        void notify() override;
 };
 
 #endif

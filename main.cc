@@ -14,8 +14,9 @@ int main(/*int argc, char* argv[]*/) {
     Match m {1, 1};
     textobserver* temp = new textobserver(&m);
     std::cout << &temp;
-    //graphobserver* temp1 = new graphobserver(&m);
-    //m.attach(temp1);
+    graphobserver* temp1 = new graphobserver(&m);
+    std::cout << &temp1;
+
     m.playMatch();
 
     /* Game g1{1};

@@ -46,6 +46,18 @@ int Game::getLevel() {
     return currentLevel;
 }
 
+std::vector<std::vector<char>> Game::getNext(){
+    std::vector<std::vector <char>> temp;
+    for(int i = 0;i<4;i++){
+        std::vector<char> temp1;
+        for(int j = 0;j<4;j++){
+            temp1.emplace_back(this->getState(i,j));
+        }
+        temp.emplace_back(temp1);
+    }
+    return temp;
+}
+
 bool Game::getSpecial() {
     return specialActionAvailable;
 }

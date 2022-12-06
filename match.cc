@@ -1,6 +1,5 @@
 #include "match.h"
 
-<<<<<<< HEAD
 Match::Match(int _p1Level, int _p2Level):
     highScore{0}, game1{_p1Level}, game2{_p2Level} {
         em.register_command("left", &Game::left);
@@ -22,28 +21,6 @@ Match::Match(int _p1Level, int _p2Level):
         em.register_command("S", &Game::replaceS);
         em.register_command("T", &Game::replaceT);
         em.register_command("Z", &Game::replaceZ);
-=======
-Match::Match(int p1Level, int p2Level) : highScore{0}, game1{p1Level}, game2{p2Level}
-{
-    em.register_command("left", &Game::left);
-    em.register_command("right", &Game::right);
-    em.register_command("down", &Game::down);
-    em.register_command("clockwise", &Game::rotateCW);
-    em.register_command("counterclockwise", &Game::rotateCCW);
-    em.register_command("drop", &Game::drop);
-    em.register_command("levelup", &Game::levelUp);
-    em.register_command("leveldown", &Game::levelDown); // TODO: add parameter for different players
-    em.register_command("norandom", &Game::noRandom);
-    em.register_command("random", &Game::random);
-    /*em.register_command("sequence", &Game::sequence);
-    em.register_command("I", &Game::restart);
-    em.register_command("J", &Game::restart);
-    em.register_command("L", &Game::restart);
-    em.register_command("O", &Game::restart);
-    em.register_command("S", &Game::restart);
-    em.register_command("Z", &Game::restart);
-    em.register_command("T", &Game::restart);*/
->>>>>>> 46a439e (side by side observers)
 }
 
 void Match::playMatch()
@@ -66,7 +43,7 @@ void Match::playMatch()
                 {
                     // game1.printBoard();
                     std::cout << "ABOVW\n";
-                    this->printBoard(1);
+                    this->printBoard();
                     std::cout << "BELOW\n";
                     game2.genBlock(); // generating OTHER player's block so they can see during their turn
                     // TODO something something to take input for game 1
@@ -76,7 +53,6 @@ void Match::playMatch()
                         // take input
                         std::cout << "p1 level: " << game1.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
-<<<<<<< HEAD
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {
                                 game1.levelDown("sequence1.txt");
@@ -86,17 +62,6 @@ void Match::playMatch()
                                 } else {
                                     em.dispatch_command(input.second[0], &game1);
                                 }
-=======
-                        for (int i = 0; i < input.first; ++i)
-                        {
-                            if (input.second[1] != "")
-                            {
-                                em.dispatch_command(input.second[0], &game1, input.second[1]);
-                            }
-                            else
-                            {
-                                em.dispatch_command(input.second[0], &game1);
->>>>>>> 46a439e (side by side observers)
                             }
                         }
                         // apply both heavies
@@ -117,7 +82,7 @@ void Match::playMatch()
                             }
                         }
                         // game1.printBoard();
-                        this->printBoard(1);
+                        this->printBoard();
                         if (input.second[0] == "drop")
                         {
                             p1turn = false;
@@ -125,7 +90,6 @@ void Match::playMatch()
                     }
                     game1.constructiveForce(); // TODO constructive force
                     // TODO print everything using jeffrey's work
-<<<<<<< HEAD
                     if (game1.getSpecial()) {
                         game1.setSpecial(false);
                         bool valid = false;
@@ -147,19 +111,12 @@ void Match::playMatch()
                         }
 
                     }
-                    game1.printBoard();
+                    // game1.printBoard();
+                    this->printBoard();
 
                 } else {
-                    game2.printBoard();
-=======
-                    // game1.printBoard();
-                    this->printBoard(1);
-                }
-                else
-                {
                     // game2.printBoard();
-                    this->printBoard(2);
->>>>>>> 46a439e (side by side observers)
+                    this->printBoard();
                     game1.genBlock(); // generating OTHER player's block so they can see during their turn
                     // TODO something something to take input for game 1
                     bool p2turn = true;
@@ -168,7 +125,6 @@ void Match::playMatch()
                         // take input
                         std::cout << "p2 level: " << game2.getLevel() << std::endl;
                         std::pair<int, std::vector<std::string>> input = em.process_input();
-<<<<<<< HEAD
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {
                                 game2.levelDown("sequence2.txt");
@@ -178,17 +134,6 @@ void Match::playMatch()
                                 } else {
                                     em.dispatch_command(input.second[0], &game2);
                                 }
-=======
-                        for (int i = 0; i < input.first; ++i)
-                        {
-                            if (input.second[1] != "")
-                            {
-                                em.dispatch_command(input.second[0], &game2, input.second[1]);
-                            }
-                            else
-                            {
-                                em.dispatch_command(input.second[0], &game2);
->>>>>>> 46a439e (side by side observers)
                             }
                         }
                         // apply both heavies
@@ -209,7 +154,7 @@ void Match::playMatch()
                             }
                         }
                         // game2.printBoard();
-                        this->printBoard(2);
+                        this->printBoard();
                         // if dropped, check level 4 counter if level 4
                         if (input.second[0] == "drop")
                         {
@@ -219,7 +164,7 @@ void Match::playMatch()
                     game2.constructiveForce(); // TODO constructive force
                     // TODO print everything using jeffrey's work
                     // game2.printBoard();
-                    this->printBoard(2);
+                    this->printBoard();
                 }
             }
             catch (NoSpaceForBlock)
@@ -250,40 +195,64 @@ void Match::playMatch()
     }
 }
 
-<<<<<<< HEAD
 void Match::restart() {
     game1 = {0, "sequence1.txt"};
     game2 = {0, "sequence1.txt"};
 }
 
-=======
-char Match::getState(int row, int col) const
+char Match::getState(int row, int col, int playerNum) const
 {
-    if (col >= 12)
-    {
-        return game2.getState(row, col - 12);
-    }
-    else if (col < 11)
+    if (playerNum == 1)
     {
         return game1.getState(row, col);
     }
+    else
+    {
+        return game2.getState(row, col);
+    }
     return '.';
 }
 
-char Match::getPrevState(int row, int col) const
+char Match::getPrevState(int row, int col, int playerNum) const
 {
-    if (col >= 12)
-    {
-        return game2.getPrevState(row, col - 12);
-    }
-    else if (col < 11)
+    if (playerNum == 1)
     {
         return game1.getPrevState(row, col);
     }
+    else
+    {
+        return game2.getPrevState(row, col);
+    }
     return '.';
 }
 
-void Match::printBoard(int playerNum){
-    this->notifyObservers(playerNum);
+void Match::printBoard(){
+    this->notifyObservers();
 }
->>>>>>> 46a439e (side by side observers)
+
+int Match::getLevel(int playerNum){
+    if(playerNum == 1){
+        return game1.getLevel();
+    }
+    else{
+        return game2.getLevel();
+    }
+}
+
+int Match::getScore(int playerNum){
+    if(playerNum == 1){
+        return game1.getScore();
+    }
+    else{
+        return game2.getScore();
+    }
+}
+
+std::vector<std::vector<char>> Match::getNext(int playerNum){
+    if(playerNum == 1){
+        return game1.getNext();
+    }
+    else{
+        return game2.getNext();
+    }
+}

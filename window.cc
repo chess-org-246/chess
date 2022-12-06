@@ -50,7 +50,6 @@ Xwindow::Xwindow(int width, int height) {
   XSetNormalHints(d, w, &hints);
 
   XSynchronize(d,True);
-
   usleep(1000);
 
   // Make sure we don't race against the Window being shown
@@ -73,6 +72,11 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
 }
 
 void Xwindow::drawString(int x, int y, string msg) {
+  // XFontStruct* font;
+  // char* name = '-*-dejavu sans-bold-r-*-*-*-220-100-100-*-*-iso8859-1';
+  // font = XLoadQueryFont(d, name);
+  // XSetFont(d, DefaultGC(d, s), font->fid);
+  // // XTextExtents(font, msg.c_str(), msg.length(),  )  
   XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 }
 

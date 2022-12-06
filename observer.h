@@ -4,7 +4,7 @@ class Subject;
 
 class Observer {
  public:
-  virtual void notify(int playerNum) = 0;
+  virtual void notify() = 0;
   virtual ~Observer() = default;
 };
 #endif

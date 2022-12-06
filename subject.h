@@ -10,8 +10,8 @@ class Subject {
  public:
   void attach(Observer *o);
   void detach(Observer *o);
-  void notifyObservers(int playerNum);
-  virtual char getState(int row, int col) const = 0;
+  void notifyObservers();
+  virtual char getState(int row, int col, int playerNum) const = 0;
   virtual ~Subject() = default;
 };
 
