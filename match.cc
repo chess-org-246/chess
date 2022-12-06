@@ -118,19 +118,11 @@ bool Match::playMatch() {
                         }
 
                     }
-<<<<<<< HEAD
-
-                } else {
-                    game1.printBoard();
-                    game2.printBoard();
-                    game1.genBlock(); // generating OTHER player's block so they can see during their turn
-=======
                     game1->printBoard();
 
                 } else {
                     game2->printBoard();
                     game1->genBlock(); // generating OTHER player's block so they can see during their turn
->>>>>>> 3e2e3ed (fixed specialblock generation and added restart)
                     // TODO something something to take input for game 1
                     bool p2turn = true;
                     while (p2turn) {
