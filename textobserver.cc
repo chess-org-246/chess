@@ -6,13 +6,6 @@ textobserver::textobserver(Match * match){
 }
 
 void textobserver::notify(){
-  // int offset = 0;
-  // out << playerNum << std::endl;
-  std::vector<std::vector<char>> player1Next = match->getNext(1);
-  std::vector<std::vector<char>> player2Next = match->getNext(2);
-  // if(playerNum == 2){
-  //   offset = 12;
-  // }
   out << std::setw(18);
   out << "        Player 1                   Player 2        " << std::endl;
   out << "Level:                 " << match->getLevel(1) << "   ";
@@ -37,12 +30,79 @@ void textobserver::notify(){
 
         
   out << "-------------------------  -------------------------" << std::endl;
+
+  std::vector<std::vector<int>> temp1;
+    switch(match->nextBlock(1)){
+        case 'I':
+            temp1 = I1;
+            break;
+        case 'J':
+            temp1 = J1;
+            break;
+        case 'L':
+            temp1 = L1;
+            break;
+        case 'O':
+            temp1 = O1;
+            break;
+        case 'S':
+            temp1 = S1;
+            break;
+        case 'Z':
+            temp1 = Z1;
+            break;
+        case 'T':
+            temp1 = T1;
+            break;
+
+    }
+    std::vector<std::vector<int>> temp2;
+    switch(match->nextBlock(2)){
+        case 'I':
+            temp2 = I1;
+            break;
+        case 'J':
+            temp2 = J1;
+            break;
+        case 'L':
+            temp2 = L1;
+            break;
+        case 'O':
+            temp2 = O1;
+            break;
+        case 'S':
+            temp2 = S1;
+            break;
+        case 'Z':
+            temp2 = Z1;
+            break;
+        case 'T':
+            temp2 = T1;
+            break;
+
+    }
+  out << "Next Block:                  Next Block:\n";
   for(int i = 0;i<4;i++){
     for(int j = 0;j<4;j++){
-      out << player1Next[i][j];
+      if(temp1[i][j]){
+        out << match->nextBlock(1);
+      }
+      else{
+        out << ".";
+      }
+    }
+    out << "                         ";
+    for(int j = 0;j<4;j++){
+      if(temp2[i][j]){
+        out << match->nextBlock(2);
+      }
+      else{
+        out << ".";
+      }
     }
     out << "\n";
   }
+    // out << "\n";
 }
 
 

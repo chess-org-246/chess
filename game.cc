@@ -23,16 +23,20 @@ Game::Game(int curLevel, std::string filename):
         }
 
 }
-void Game::copyBoard(){
-    for(int i = 0;i<height;i++){
-        for(int j = 0;j<width;j++){
-            prevBoard[i][j] = board.board[i][j]->getChar();
-        }
-    }
-}
-char Game::getPrevState(int row, int col) const{
-    // std::cout << "YOOO" << std::endl;
-    return prevBoard[row][col];
+// void Game::copyBoard(){
+//     for(int i = 0;i<height;i++){
+//         for(int j = 0;j<width;j++){
+//             prevBoard[i][j] = board.board[i][j]->getChar();
+//         }
+//     }
+// }
+// char Game::getPrevState(int row, int col) const{
+//     // std::cout << "YOOO" << std::endl;
+//     return prevBoard[row][col];
+// }
+
+char Game::nextBlock(){
+    return nextBlockChar;
 }
 char Game::getState(int row, int col) const{
     return board.board[row][col]->getChar();
@@ -46,17 +50,17 @@ int Game::getLevel() {
     return currentLevel;
 }
 
-std::vector<std::vector<char>> Game::getNext(){
-    std::vector<std::vector <char>> temp;
-    for(int i = 0;i<4;i++){
-        std::vector<char> temp1;
-        for(int j = 0;j<4;j++){
-            temp1.emplace_back(this->getState(i,j));
-        }
-        temp.emplace_back(temp1);
-    }
-    return temp;
-}
+// std::vector<std::vector<char>> Game::getNext(){
+//     std::vector<std::vector <char>> temp;
+//     for(int i = 0;i<4;i++){
+//         std::vector<char> temp1;
+//         for(int j = 0;j<4;j++){
+//             temp1.emplace_back(this->getState(i,j));
+//         }
+//         temp.emplace_back(temp1);
+//     }
+//     return temp;
+// }
 
 bool Game::getSpecial() {
     return specialActionAvailable;
@@ -69,13 +73,13 @@ void Game::setSpecial(bool b) {
 void Game::genBlock() {
     // copyBoard();
     char first = level->randomizeBlock();
-    if (nextBlock == '!') {
-        nextBlock = level->randomizeBlock();
+    if (nextBlockChar == '!') {
+        nextBlockChar = level->randomizeBlock();
         blocks.insert(blocks.begin(), level->generateBlock(&board, first));
     } else {
-        blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlock));
+        blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlockChar));
     }
-    nextBlock = first;
+    nextBlockChar = first;
     currBlock = blocks[0].get();
 }
 

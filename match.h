@@ -24,8 +24,9 @@ class Match : public Subject{
         char getState(int row, int col, int playerNum) const override;
         int getLevel(int playerNum);
         int getScore(int playerNum);
-        char getPrevState(int row, int col, int playerNum) const;
-        std::vector<std::vector<char>> getNext(int playerNum);
+        char nextBlock(int playerNum);
+        // char getPrevState(int row, int col, int playerNum) const;
+        // std::vector<std::vector<char>> getNext(int playerNum);
         bool playMatch();
         void printBoard();
 };

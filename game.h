@@ -21,10 +21,9 @@
 #include "levelfour.h"
 
 class Game/*: public Subject*/{
-    char nextBlock = '!';
+    char nextBlockChar = '!';
     int height = 18, width = 11;
     Board board;
-    std::vector<std::vector<char>>prevBoard = std::vector<std::vector<char>>(height, std::vector<char>(width, '.')); /* 18 rows * 11 cols */
     std::unique_ptr<AbstractLevel> level;
     int row, col;
     int levelFourCounter = 0;
@@ -62,13 +61,14 @@ class Game/*: public Subject*/{
         void makeBlind();
         void makeHeavy();
         
-        void copyBoard();
+        // void copyBoard();
         char getState(int row, int col) const;
-        char getPrevState(int row, int col) const;
+        // char getPrevState(int row, int col) const;
 
         int getScore();
         int getLevel();
-        std::vector<std::vector<char>> getNext();
+        char nextBlock();
+        // std::vector<std::vector<char>> getNext();
         bool getSpecial();
         void setSpecial(bool b);
 
