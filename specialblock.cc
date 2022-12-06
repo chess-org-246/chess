@@ -5,10 +5,11 @@ SpecialBlock::SpecialBlock(Board * board, int _blockLevel) : AbstractBlock{board
     init_mask();
     blockType = '*';
     l = 5;
-    this->drop();
     if (testCollisions(t, l, currOrientation)) {
+        std::cout << "first";
         throw NoSpaceForBlock{};
     }
+    this->drop();
     updateBoard(t,l);
 }
 

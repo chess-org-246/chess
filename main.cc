@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
     if (makeGraphics) {
         // make graphics observer
     }
-    m.playMatch();
+    while(m.playMatch()){}
 
     /* Game g1{1};
     EventMgr e;

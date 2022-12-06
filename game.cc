@@ -95,7 +95,8 @@ void Game::checkRows() {
 void Game::constructiveForce() {
     if (currentLevel == 4 && levelFourCounter >= 5) {
         levelFourCounter = 0;
-        // TODO spawn obstacle
+        std::unique_ptr<AbstractBlock> special = std::make_unique<SpecialBlock>(&board, 4);
+        checkRows();
     }
 }
 
