@@ -23,64 +23,58 @@ void LevelFour::noRandom(std::string filename) {
     }
 }
 
-std::unique_ptr<AbstractBlock> LevelFour::generateBlock(Board* board) {
+std::unique_ptr<AbstractBlock> LevelFour::generateBlock(Board* board, char block) {
+   std::unique_ptr<AbstractBlock> b;
     try {
-        std::unique_ptr<AbstractBlock> b;
-        if (isRandom == true) {
-            int r = (rand() % 9) + 1;
-
-            if (r == 1) {
-                b = std::make_unique<IBlock>(board, 4);
-                return b;
-            } else if (r == 2) {
-                b = std::make_unique<JBlock>(board, 4);
-                return b;
-            } else if (r == 3) {
-                b = std::make_unique<LBlock>(board, 4);
-                return b;
-            } else if (r == 4) {
-                b = std::make_unique<OBlock>(board, 4);
-                return b;
-            } else if (r == 5) {
-                b = std::make_unique<SBlock>(board, 4);
-                return b;
-            } else if (r == 6) {
-                b = std::make_unique<SBlock>(board, 4);
-                return b;
-            } else if (r == 7) {
-                b = std::make_unique<TBlock>(board, 4);
-                return b;
-            } else if (r == 8) {
-                b = std::make_unique<ZBlock>(board, 4);
-                return b;
-            } else {
-                b = std::make_unique<ZBlock>(board, 4);
-                return b;
-            }
+        if (block == 'I') {
+            b = std::make_unique<IBlock>(board, 2);
+        } else if (block == 'J') {
+            b = std::make_unique<JBlock>(board, 2);
+        } else if (block == 'L') {
+            b = std::make_unique<LBlock>(board, 2);
+        } else if (block == 'O') {
+            b = std::make_unique<OBlock>(board, 2);
+        } else if (block == 'S') {
+            b = std::make_unique<SBlock>(board, 2);
+        } else if (block == 'T') {
+            b = std::make_unique<TBlock>(board, 2);
         } else {
-            if (sequence[sequence_index] == 'I') {
-                b = std::make_unique<IBlock>(board, 4);
-            } else if (sequence[sequence_index] == 'J') {
-                b = std::make_unique<JBlock>(board, 4);
-            } else if (sequence[sequence_index] == 'L') {
-                b = std::make_unique<LBlock>(board, 4);
-            } else if (sequence[sequence_index] == 'O') {
-                b = std::make_unique<OBlock>(board, 4);
-            } else if (sequence[sequence_index] == 'S') {
-                b = std::make_unique<SBlock>(board, 4);
-            } else if (sequence[sequence_index] == 'T') {
-                b = std::make_unique<TBlock>(board, 4);
-            } else {
-                b = std::make_unique<ZBlock>(board, 4);
-            }
-            sequence_index++;
-            if (sequence_index >= (int) sequence.size()) {
-                sequence_index = 0;
-            } 
-            return b;
+            b = std::make_unique<ZBlock>(board, 2);
         }
+        return b;
     } catch (NoSpaceForBlock) {
         throw;
     }
     throw ControlOutOfRange{};
+}
+
+char LevelFour::randomizeBlock() {
+    char b;
+    if (isRandom) {
+        int r = (rand() % 9) + 1;
+        if (r == 1) {
+            b = 'I';
+        } else if (r == 2) {
+            b = 'J';
+        } else if (r == 3) {
+            b = 'L';
+        } else if (r == 4) {
+            b = 'O';
+        } else if (r == 5 || r == 6) {
+            b = 'S';
+        } else if (r == 7) {
+            b = 'T';
+        } else if (r == 8) {
+            b = 'Z';
+        } else {
+            b = 'Z';
+        }
+    } else {
+        b = sequence[sequence_index];
+        sequence_index++;
+        if (sequence_index >= (int) sequence.size()) {
+            sequence_index = 0;
+        }
+    }
+    return b;
 }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>  /* shared_ptr */
 #include "board.h"
+#include "masks.h"
 
 class AbstractBlock {
     protected:

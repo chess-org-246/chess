@@ -24,8 +24,8 @@ class LevelFour : public AbstractLevel {
         LevelFour();
         void random() override;
         void noRandom(std::string filename) override;
-        std::unique_ptr<AbstractBlock> generateBlock(Board* board) override;
-
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board, char block) override;
+        char randomizeBlock() override;
 };
 
 #endif

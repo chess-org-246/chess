@@ -46,7 +46,14 @@ void Game::setSpecial(bool b) {
 }
 
 void Game::genBlock() {
-    blocks.insert(blocks.begin(), level->generateBlock(&board));
+    char first = level->randomizeBlock();
+    if (nextBlock == '!') {
+        nextBlock = level->randomizeBlock();
+        blocks.insert(blocks.begin(), level->generateBlock(&board, first));
+    } else {
+        blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlock));
+    }
+    nextBlock = first;
     currBlock = blocks[0].get();
 }
 

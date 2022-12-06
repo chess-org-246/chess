@@ -23,6 +23,7 @@
 class Game/*: public Subject*/{
     Board board;
     std::unique_ptr<AbstractLevel> level;
+    char nextBlock = '!';
     int height = 18, width = 11;
     int row, col;
     int levelFourCounter = 0;
