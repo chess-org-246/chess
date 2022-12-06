@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
+#include "window.h"
 #include <iostream>
 
 class Board {

@@ -2,6 +2,7 @@
 
 std::unique_ptr<AbstractBlock> LevelTwo::generateBlock(Board* board, char block) {
     std::unique_ptr<AbstractBlock> b;
+
     try {
         if (block == 'I') {
             b = std::make_unique<IBlock>(board, 2);

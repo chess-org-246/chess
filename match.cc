@@ -32,20 +32,28 @@ bool Match::playMatch() {
 
     std::cout << "BIQUADRIS: Enter anything to start: " << std::endl;
     std::string cmd;
-    if (std::cin >> cmd) { // start game
+    if (std::cin >> cmd)
+    { // start game
+    std::cout << "started\n";
         bool run = true;
         bool p1 = true;
         game1->genBlock();
         while (run) {
             try {
                 if (p1) {
-                    game1->printBoard();
-                    game2->printBoard();
+                    // this->printBoard();
+                
                     game2->genBlock(); // generating OTHER player's block so they can see during their turn
+
+                    
                     // TODO something something to take input for game 1
                     bool p1turn = true;
-                    while (p1turn) {
+                    while (p1turn)
+                    {
+                        this->printBoard();
+                        
                         // take input
+                        // game1->copyBoard();
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         if (input.second[0] == "restart") {
                             restart();
@@ -77,12 +85,16 @@ bool Match::playMatch() {
                                 p1turn = false;
                             }
                         }
-                        game1->printBoard();
+                        // game1->printBoard();
                         if (input.second[0] == "drop") {
                             p1turn = false;
+                            break;
                         }
+                        // this->printBoard();
                     }
-                    game1->constructiveForce(); // TODO constructive force
+                    game1->constructiveForce(); 
+                    // this->printBoard(); 
+                    // game1->copyBoard(); // TODO constructive force
                     // TODO print everything using jeffrey's work
                     if (game1->getSpecial()) {
                         game1->setSpecial(false);
@@ -122,14 +134,16 @@ bool Match::playMatch() {
                         }
 
                     }
-                    game1->printBoard();
-
+                    // this->printBoard();
                 } else {
-                    game2->printBoard();
                     game1->genBlock(); // generating OTHER player's block so they can see during their turn
+
                     // TODO something something to take input for game 1
                     bool p2turn = true;
-                    while (p2turn) {
+                    while (p2turn)
+                    {
+                        this->printBoard();
+                        // game2->copyBoard();
                         // take input
                         std::pair<int, std::vector<std::string>> input = em.process_input();
                         if (input.second[0] == "restart") {
@@ -162,14 +176,18 @@ bool Match::playMatch() {
                                 p2turn = false;
                             }
                         }
-                        game2->printBoard();
+                        // game2->printBoard();
+                        // this->printBoard();
                         // if dropped, check level 4 counter if level 4
-                        if (input.second[0] == "drop") {
+                        if (input.second[0] == "drop")
+                        {
                             p2turn = false;
+                            break;
                         }
+                        // this->printBoard();
                     }
                     game2->constructiveForce(); // TODO constructive force
-                    // TODO print everything using jeffrey's work
+                    // this->printBoard();
                     if (game2->getSpecial()) {
                         game2->setSpecial(false);
                         bool valid = false;
@@ -208,9 +226,11 @@ bool Match::playMatch() {
                         }
 
                     }
-                    game2->printBoard();
+                    // this->printBoard();
                 }
-            } catch (NoSpaceForBlock) {
+            }
+            catch (NoSpaceForBlock)
+            {
                 run = false;
                 if (p1) {
                     std::cout << "p2 lost\n";
@@ -238,3 +258,69 @@ void Match::restart() {
     game2 = std::make_unique<Game>(game2->getLevel(), "sequence2.txt");
 }
 
+char Match::getState(int row, int col, int playerNum) const
+{
+    if (playerNum == 1)
+    {
+        return game1->getState(row, col);
+    }
+    else
+    {
+        return game2->getState(row, col);
+    }
+    return '.';
+}
+
+char Match::nextBlock(int playerNum){
+    if(playerNum == 1){
+        return game1->nextBlock();
+    }
+    else{
+        return game2->nextBlock();
+    }
+
+}
+
+// char Match::getPrevState(int row, int col, int playerNum) const
+// {
+//     if (playerNum == 1)
+//     {
+//         return game1->getPrevState(row, col);
+//     }
+//     else
+//     {
+//         return game2->getPrevState(row, col);
+//     }
+//     return '.';
+// }
+
+void Match::printBoard(){
+    this->notifyObservers();
+}
+
+int Match::getLevel(int playerNum){
+    if(playerNum == 1){
+        return game1->getLevel();
+    }
+    else{
+        return game2->getLevel();
+    }
+}
+
+int Match::getScore(int playerNum){
+    if(playerNum == 1){
+        return game1->getScore();
+    }
+    else{
+        return game2->getScore();
+    }
+}
+
+// std::vector<std::vector<char>> Match::getNext(int playerNum){
+//     if(playerNum == 1){
+//         return game1->getNext();
+//     }
+//     else{
+//         return game2->getNext();
+//     }
+// }
