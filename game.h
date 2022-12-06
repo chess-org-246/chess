@@ -10,6 +10,7 @@
 
 #include "board.h"
 #include "abstractblock.h"
+#include "specialblock.h"
 #include "subject.h"
 #include "abstractlevel.h"
 #include "cell.h"
