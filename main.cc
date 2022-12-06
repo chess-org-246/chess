@@ -20,7 +20,6 @@ int main(int argc, char* argv[]) {
     std::string f2 = "sequence2.txt";
     //setting different booleans false or true depending on which commands are read
     if (argc > 1) {
-        std::cout << "args\n";
         int index = 1;
         while (index < argc) {
             std::string cmd = argv[index];
@@ -33,11 +32,9 @@ int main(int argc, char* argv[]) {
             } else if (cmd == "-scriptfile1") {
                 ++index;
                 f1 = argv[index];
-                std::cout << f1 << std::endl;
             } else if (cmd == "-scriptfile2") {
                 ++index;
                 f2 = argv[index];
-                std::cout << f2 << std::endl;
             } else if (cmd == "-startlevel") {
                 ++index;
                 std::istringstream iss {cmd};

@@ -1,8 +1,8 @@
 #include "game.h"
 
 // ctor
-Game::Game(int curLevel, std::string filename):
-    currentLevel{curLevel} , currBlock{nullptr} {
+Game::Game(int curLevel, bool _gameIsP1, std::string filename):
+    currentLevel{curLevel} , currBlock{nullptr}, gameIsP1{_gameIsP1} {
         filename = filename;
         if (curLevel == 0) {
             level = std::make_unique<LevelZero>(filename);
@@ -52,22 +52,28 @@ void Game::setSpecial(bool b) {
 // generates a new block, updates current and nexts
 void Game::genBlock() {
     // generate the next block
-    char first = level->randomizeBlock();
+    try {
+        char first = level->randomizeBlock();
 
-    // if we haven't generated a block before, we have to generate 2 
-    if (nextBlockChar == '!') {
-        // make the next one 
-        nextBlockChar = level->randomizeBlock();
-        // put the first block into the board
-        blocks.insert(blocks.begin(), level->generateBlock(&board, first));
-    } else {
-        // otherwise, just put the previously generated next block into the board
-        blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlockChar));
+        // if we haven't generated a block before, we have to generate 2 
+        if (nextBlockChar == '!') {
+            // make the next one 
+            nextBlockChar = level->randomizeBlock();
+            // put the first block into the board
+            blocks.insert(blocks.begin(), level->generateBlock(&board, first));
+        } else {
+            // otherwise, just put the previously generated next block into the board
+            blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlockChar));
+        }
+        // update the next block with the newly generated one
+        nextBlockChar = first;
+        // update current block pointer
+        currBlock = blocks[0].get();
+    } catch (NoSpaceForBlock e) {
+        e.setPlayer1(gameIsP1);
+        throw e;
     }
-    // update the next block with the newly generated one
-    nextBlockChar = first;
-    // update current block pointer
-    currBlock = blocks[0].get();
+    
 }
 
 void Game::checkRows() {

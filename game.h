@@ -56,11 +56,14 @@ class Game {
 
     // current block pointer
     AbstractBlock * currBlock;
+
+    // flag to indicate player
+    bool gameIsP1;
     
     public:
     // ctors
         Game();
-        Game(int curLevel, std::string filename = "");
+        Game(int curLevel, bool _gameIsP1, std::string filename = "");
 
         // to check if rows can be cleared, and apply score
         void checkRows();
