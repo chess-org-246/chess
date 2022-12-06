@@ -31,6 +31,7 @@ void Match::playMatch() {
     if (std::cin >> cmd) { // start game
         bool run = true;
         bool p1 = true;
+        std::cout << "game1 level: " << game1.getLevel() << std::endl;
         game1.genBlock();
         while (run) {
             try {
@@ -38,7 +39,6 @@ void Match::playMatch() {
                     game1.printBoard();
                     game2.printBoard();
                     game2.genBlock(); // generating OTHER player's block so they can see during their turn
-                    // TODO something something to take input for game 1
                     bool p1turn = true;
                     while (p1turn) {
                         // take input
@@ -111,9 +111,9 @@ void Match::playMatch() {
                         }
 
                     }
-                    game1.printBoard();
 
                 } else {
+                    game1.printBoard();
                     game2.printBoard();
                     game1.genBlock(); // generating OTHER player's block so they can see during their turn
                     // TODO something something to take input for game 1
@@ -190,7 +190,6 @@ void Match::playMatch() {
                         }
 
                     }
-                    game2.printBoard();
                 }
             } catch (NoSpaceForBlock) {
                 run = false;

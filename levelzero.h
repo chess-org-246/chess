@@ -20,7 +20,8 @@ class LevelZero : public AbstractLevel {
 
     public:
         explicit LevelZero(std::string filename);
-        std::unique_ptr<AbstractBlock> generateBlock(Board* board) override;
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board, char block) override;
+        char randomizeBlock() override;
         void random() override;
         void noRandom(std::string f) override;
 };

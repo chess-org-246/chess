@@ -16,7 +16,8 @@ class Board;
 
 class LevelTwo : public AbstractLevel {
     public:
-        std::unique_ptr<AbstractBlock> generateBlock(Board* board);
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board, char block);
+        char randomizeBlock() override;
         void random() override;
         void noRandom(std::string f) override;
 };
