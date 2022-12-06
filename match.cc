@@ -201,10 +201,7 @@ bool Match::playMatch() {
                         }
 
                     }
-<<<<<<< HEAD
-=======
                     game2->printBoard();
->>>>>>> 3e2e3ed (fixed specialblock generation and added restart)
                 }
             } catch (NoSpaceForBlock) {
                 run = false;
