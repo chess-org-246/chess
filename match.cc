@@ -19,6 +19,9 @@ Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
         em.register_command("end", (void (Game::*)(void)) nullptr);
         em.register_command("alias", (void (Game::*)(void)) nullptr);
         em.register_command("macro", (void (Game::*)(void)) nullptr);
+        em.register_command("blind", (void (Game::*)(void)) nullptr);
+        em.register_command("force", (void (Game::*)(void)) nullptr);
+        em.register_command("heavy", (void (Game::*)(void)) nullptr);
         em.register_command("I", &Game::replaceI);
         em.register_command("J", &Game::replaceJ);
         em.register_command("L", &Game::replaceL);
@@ -32,9 +35,9 @@ Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
 bool Match::playMatch() {
     // this function is gonna have all the game logic
 
-    std::cout << "BIQUADRIS: Enter anything to start: " << std::endl;
-    std::string cmd;
-    if (std::cin >> cmd)
+    printPrompt(startGamePrompt);
+    std::string cmd = em.fetch_byte();
+    if (cmd != "")
     { // start game
         // bool run = true;
         bool p1 = true;
@@ -90,9 +93,8 @@ bool Match::playMatch() {
                         game1->setSpecial(false);
                         bool valid = false;
                         while (!valid) {
-                            std::cout << "Choose your special action. (blind, heavy, force): ";
-                            std::string cmd;
-                            std::cin >> cmd;
+                            printPrompt(specActionPrompt);
+                            std::string cmd = em.fetch_byte();
                             if (cmd == "blind") {
                                 valid = true;
                                 game2->makeBlind();
@@ -101,8 +103,8 @@ bool Match::playMatch() {
                                 game2->makeHeavy();
                             } else if (cmd == "force") {
                                 valid = true;
-                                std::cout << "Enter the block you want to give your opponent: ";
-                                std::cin >> cmd;
+                                printPrompt(forceBlockPrompt);
+                                cmd = em.fetch_byte();
                                 if (cmd == "I" || cmd == "i") {
                                     game2->replaceI();
                                 } else if (cmd == "J" || cmd == "j") {
@@ -119,7 +121,7 @@ bool Match::playMatch() {
                                     game2->replaceZ();
                                 }
                             } else {
-                                std::cout << "Invalid special action. Enter one of the above.";
+                                printPrompt(invalidSpecAction);
                             }
                         }
 
@@ -179,9 +181,8 @@ bool Match::playMatch() {
                         game2->setSpecial(false);
                         bool valid = false;
                         while (!valid) {
-                            std::cout << "Choose your special action. (blind, heavy, force): ";
-                            std::string cmd;
-                            std::cin >> cmd;
+                            printPrompt(specActionPrompt);
+                            std::string cmd = em.fetch_byte();
                             if (cmd == "blind") {
                                 valid = true;
                                 game1->makeBlind();
@@ -190,8 +191,8 @@ bool Match::playMatch() {
                                 game1->makeHeavy();
                             } else if (cmd == "force") {
                                 valid = true;
-                                std::cout << "Enter the block you want to give your opponent: ";
-                                std::cin >> cmd;
+                                printPrompt(forceBlockPrompt);
+                                cmd = em.fetch_byte();
                                 if (cmd == "I" || cmd == "i") {
                                     game1->replaceI();
                                 } else if (cmd == "J" || cmd == "j") {
@@ -208,7 +209,7 @@ bool Match::playMatch() {
                                     game1->replaceZ();
                                 }
                             } else {
-                                std::cout << "Invalid special action. Enter one of the above.";
+                                printPrompt(invalidSpecAction);
                             }
                         }
                     }
@@ -220,9 +221,9 @@ bool Match::playMatch() {
             catch (NoSpaceForBlock e)
             {
                 if (e.getPlayer1()) {
-                    std::cout << "Player 2 Wins!\n\n";
+                    printPrompt(p2Win);
                 } else {
-                    std::cout << "Player 1 Wins! \n\n";
+                    printPrompt(p1Win);
                 }
                 if (game1->getScore() > highScore) {
                     highScore = game1->getScore();
@@ -257,6 +258,10 @@ char Match::getState(int row, int col, int playerNum) const //returns the state 
     return '.';
 }
 
+std::string Match::getCurrPrompt() {
+    return currPrompt;
+}
+
 char Match::nextBlock(int playerNum){ //returns char of the nextBlock
     if(playerNum == 1){
         return game1->nextBlock();
@@ -271,6 +276,13 @@ char Match::nextBlock(int playerNum){ //returns char of the nextBlock
 void Match::printBoard(){ //notify observers
     this->notifyObservers();
 }
+
+void Match::printPrompt(std::string prompt) {
+    currPrompt = prompt;
+    printBoard();
+    currPrompt = "";
+}
+
 
 int Match::getLevel(int playerNum){ //returns levels
     if(playerNum == 1){

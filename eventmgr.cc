@@ -98,3 +98,10 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
 
     return ret;
 }
+
+
+std::string EventMgr::fetch_byte() {
+    std::string s;
+    (*in) >> s;
+    return s;
+}

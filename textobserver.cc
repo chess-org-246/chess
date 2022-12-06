@@ -7,6 +7,10 @@ textobserver::textobserver(Match * match){
 }
  //print out each players board with their information
 void textobserver::notify(){
+  if (match->getCurrPrompt() != "") {
+    out << match->getCurrPrompt() << std::endl;
+    return;
+  }
   int gapSize = 16;
   int hs = match->getHighScore();
   if((int)std::to_string(hs).length() > gapSize){
@@ -138,6 +142,7 @@ void textobserver::notify(){
     out << "\n";
   }
 }
+
 
 
 textobserver::~textobserver(){

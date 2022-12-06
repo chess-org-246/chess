@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "eventmgr.h"
+#include "prompts.h"
 #include <memory>
 #include "subject.h"
 #include <iostream>
@@ -21,15 +22,19 @@ class Match : public Subject{
     std::string file1;
     std::string file2;
 
+    std::string currPrompt;
+
     public:
         Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
         void restart();
         char getState(int row, int col, int playerNum) const override; //returns the state for a specific player at a specific position
         int getLevel(int playerNum); //returns the level of the specific player
         int getScore(int playerNum); //returns the score of the specific player
+        std::string getCurrPrompt();
         char nextBlock(int playerNum); //returns the next block of the specific player
         bool playMatch(); 
         void printBoard(); //notifys the observers
+        void printPrompt(std::string prompt);
         int getHighScore();
 };
 
