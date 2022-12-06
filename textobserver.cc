@@ -1,10 +1,11 @@
 #include "textobserver.h"
 
+//init the textobserver
 textobserver::textobserver(Match * match){
   this->match = match;
   match->attach(this);
 }
-
+ //print out each players board with their information
 void textobserver::notify(){
   out << std::setw(18);
   out << "        Player 1                   Player 2        " << std::endl;
@@ -17,7 +18,7 @@ void textobserver::notify(){
     for(int i = 0; i < 18; i++) {
         out << "| ";
         for (int j = 0; j < 11; j++) {
-            out << match->getState(i, j, 1) << " ";
+            out << match->getState(i, j, 1) << " "; //get the state of each players board char by char
         }
         out << "|  ";
 
@@ -30,7 +31,7 @@ void textobserver::notify(){
 
         
   out << "-------------------------  -------------------------" << std::endl;
-
+//find the next block
   std::vector<std::vector<int>> temp1;
     switch(match->nextBlock(1)){
         case 'I':
@@ -102,7 +103,6 @@ void textobserver::notify(){
     }
     out << "\n";
   }
-    // out << "\n";
 }
 
 

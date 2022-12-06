@@ -2,8 +2,7 @@
 #include "observer.h"
 
 void Subject::attach(Observer* o){
-    observers.emplace_back(o);
-    // std::cout << "Attatched" << std::endl;
+    observers.emplace_back(o); //place observer in vector
 }
 
 void Subject::detach(Observer *o){
@@ -15,7 +14,7 @@ void Subject::detach(Observer *o){
 
 void Subject::notifyObservers(){
     for(auto ob: observers){
-        ob->notify();
+        ob->notify(); //notify the observer
     }
 }
 

@@ -1,10 +1,6 @@
 #include "game.h"
 
-
-// void Game::printBoard() {
-//     this->notifyObservers();
-// }
-
+// ctor
 Game::Game(int curLevel, std::string filename):
     currentLevel{curLevel} , currBlock{nullptr} {
         filename = filename;
@@ -23,23 +19,13 @@ Game::Game(int curLevel, std::string filename):
         }
 
 }
-// void Game::copyBoard(){
-//     for(int i = 0;i<height;i++){
-//         for(int j = 0;j<width;j++){
-//             prevBoard[i][j] = board.board[i][j]->getChar();
-//         }
-//     }
-// }
-// char Game::getPrevState(int row, int col) const{
-//     // std::cout << "YOOO" << std::endl;
-//     return prevBoard[row][col];
-// }
 
+// getters
 char Game::nextBlock(){
     return nextBlockChar;
 }
 char Game::getState(int row, int col) const{
-    return board.board[row][col]->getChar();
+    return board.board[row][col]->getHidden() ? '?' : board.board[row][col]->getChar();
 }
 
 int Game::getScore() {
@@ -50,142 +36,159 @@ int Game::getLevel() {
     return currentLevel;
 }
 
-// std::vector<std::vector<char>> Game::getNext(){
-//     std::vector<std::vector <char>> temp;
-//     for(int i = 0;i<4;i++){
-//         std::vector<char> temp1;
-//         for(int j = 0;j<4;j++){
-//             temp1.emplace_back(this->getState(i,j));
-//         }
-//         temp.emplace_back(temp1);
-//     }
-//     return temp;
-// }
-
 bool Game::getSpecial() {
     return specialActionAvailable;
 }
 
+bool Game::getBlind() {
+    return blind;
+}
+
+// setter
 void Game::setSpecial(bool b) {
     specialActionAvailable = b;
 }
 
+// generates a new block, updates current and nexts
 void Game::genBlock() {
-    // copyBoard();
+    // generate the next block
     char first = level->randomizeBlock();
+
+    // if we haven't generated a block before, we have to generate 2 
     if (nextBlockChar == '!') {
+        // make the next one 
         nextBlockChar = level->randomizeBlock();
+        // put the first block into the board
         blocks.insert(blocks.begin(), level->generateBlock(&board, first));
     } else {
+        // otherwise, just put the previously generated next block into the board
         blocks.insert(blocks.begin(), level->generateBlock(&board, nextBlockChar));
     }
+    // update the next block with the newly generated one
     nextBlockChar = first;
+    // update current block pointer
     currBlock = blocks[0].get();
 }
 
 void Game::checkRows() {
-    int numOfRowsCleared = 0;
+    int numOfRowsCleared = 0; // counter
+
+    // loop over height
     for(int i = 0;i < height; ++i){
         bool fullRow = true;
         for(int j = 0; j < width;j++){
+            // if there's ever an unoccupied cell ('.'), then it's not complete
             if(board.board[i][j]->getChar() == '.'){
-                fullRow = false;
+                fullRow = false; // so change the flag
             }
         }
-        if(fullRow) {
+        if(fullRow) { // if we have a full row
+            // erase the full row
             board.board.erase(board.board.begin() + i);
+            // create a new row
             std::vector<std::unique_ptr<Cell>> vec;
             for (int k = 0; k < width; ++k) {
+                // fill the new row with empty cells 
                 std::unique_ptr<Cell> p {new Cell('.')};
                 vec.push_back(std::move(p));
             }
-            //std::vector<std::unique_ptr<Cell>> vec(width, std::make_unique<Cell>('.'));
+            // and push it into the board
             board.board.insert(board.board.begin(), std::move(vec));
             numOfRowsCleared++;
         }
     }
+    // behaviour dependent on # of rows cleared
     if (numOfRowsCleared == 0) {
-        levelFourCounter++;
-    } else if(numOfRowsCleared == 1){
+        levelFourCounter++; // constructive force
+    } else if(numOfRowsCleared == 1) { // one block cleared, just add score
         score += (currentLevel + 1) * (currentLevel + 1);
-        levelFourCounter = 0;
+        levelFourCounter = 0; // reset force counter
     } else if(numOfRowsCleared >= 2){
-        levelFourCounter = 0;
+        levelFourCounter = 0; // reset force counter
         score += (currentLevel + numOfRowsCleared) * (currentLevel + numOfRowsCleared);
-        //prompt user for input on which type of speical power they wnat
-        // specialAction();
-        specialActionAvailable = true;
+        specialActionAvailable = true; // enable special action
     }
+    // check if any blocks have entirely been deleted
     for (auto it = blocks.begin(); it != blocks.end(); ++it) {
-        if (!((*it)->checkCells())) {
-            score += (1 + (*it)->getBlockLevel()) * (1 + (*it)->getBlockLevel());
+        // if we don't find any remaining cells
+        if (!((*it)->checkCells())) { 
+            // add to the score
+            score += (1 + (*it)->getBlockLevel()) * (1 + (*it)->getBlockLevel()); 
+            // remove the block
             it = blocks.erase(it);
+            // move back and keep going
             --it;
         }
     }
 }
 
+// create a block if player is level 4
 void Game::constructiveForce() {
+    // condition for a constructive force
     if (currentLevel == 4 && levelFourCounter >= 5) {
         levelFourCounter = 0;
+        // create a new block
         std::unique_ptr<AbstractBlock> special = std::make_unique<SpecialBlock>(&board, 4);
+        // see if that cleared any rows
         checkRows();
     }
 }
 
 
+// getter
 bool Game::isHeavy(){
     return heavy;
 }
 
+// moving blocks
 void Game::left() {
-    // copyBoard();
     blocks[0]->left();
 }
 
 void Game::right() {
-    // copyBoard();
-        blocks[0]->right();
+    blocks[0]->right();
 }
 
 void Game::down() {
-    // copyBoard();
     blocks[0]->down();
 }
 
-
 void Game::rotateCW() {
-    // copyBoard();
     blocks[0]->rotate(true);
 }
 
 void Game::rotateCCW() {
-    // copyBoard();
     blocks[0]->rotate(false);
 }
 
 void Game::drop() {
-    //copyBoard();
+    // if there's no block, create a new one and drop it
+    //   this functionality is for number-prefixed commands
     if (currBlock == nullptr) {
         genBlock();
     }
     blocks[0]->drop();
     currBlock = nullptr;
+    // see if that cleared anything
     checkRows();
 }
 
+// set the game to random
 void Game::random() {
+    // only if level 3 or 4
     if (currentLevel == 3 || currentLevel == 4) {
         level->random();
     } 
 }
 
+// stop level from being random
 void Game::noRandom(std::string f) {
     if (currentLevel == 3 || currentLevel == 4) {
         level->noRandom(f);
     } 
 }
 
+// increment level
 void Game::levelUp() {
     if (0 <= currentLevel && currentLevel <= 3) {
         currentLevel++;
@@ -206,6 +209,7 @@ void Game::levelUp() {
     }
 }
 
+// decrement level
 void Game::levelDown(std::string f) {
     if (1 <= currentLevel && currentLevel <= 4) {
         currentLevel--;
@@ -226,12 +230,15 @@ void Game::levelDown(std::string f) {
     }
 }
 
+// apply the heavy effect for level 3 and 4
 // return true if not dropped
-// returjn false if dropped (turn is over)
+// return false if dropped (turn is over)
 bool Game::levelHeavy() {
     if (currentLevel >= 3) {
+        // move down and check if it moved
         int prev = blocks[0]->getT();
         blocks[0]->down();
+        // if it didn't move, block is dropped 
         if (blocks[0]->getT() == prev) {
             blocks[0]->drop();
             return false;
@@ -240,11 +247,14 @@ bool Game::levelHeavy() {
     return true;
 }
 
+// applies the heavy special action 
 bool Game::specialHeavy() {
     if (heavy) {
+        // move down
         int prev = blocks[0]->getT();
         blocks[0]->down();
         blocks[0]->down();
+        // if didn't move, block is dropped
         if (blocks[0]->getT() == prev) {
             blocks[0]->drop();
             return false;
@@ -253,10 +263,21 @@ bool Game::specialHeavy() {
     return true;
 }
 
+// blind the board
 void Game::makeBlind() {
+    blind = true;
     for (int y = 2; y <= 11; ++y) {
         for (int x = 2; x <= 8; ++x) {
             board.board[y][x]->setHidden(true);
+        }
+    }
+}
+
+void Game::unblind() {
+    blind = false;
+    for (int y = 0; y < 18; ++y) {
+        for (int x = 0; x < 11; ++x) {
+            board.board[y][x]->setHidden(false);
         }
     }
 }

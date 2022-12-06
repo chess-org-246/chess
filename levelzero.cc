@@ -9,11 +9,12 @@ LevelZero::LevelZero(std::string filename):
     }
 }
 
+//generate the block based on the letter passed
 std::unique_ptr<AbstractBlock> LevelZero::generateBlock(Board* board, char block) {
     std::unique_ptr<AbstractBlock> b;
     try {
         if (block == 'I') {
-            b = std::make_unique<IBlock>(board, 0);
+            b = std::make_unique<IBlock>(board, 0); //each block pointer has a board and level
         } else if (block == 'J') {
             b = std::make_unique<JBlock>(board, 0);
         } else if (block == 'L') {
@@ -34,7 +35,7 @@ std::unique_ptr<AbstractBlock> LevelZero::generateBlock(Board* board, char block
     throw ControlOutOfRange {};
 }
 
-char LevelZero::randomizeBlock() {
+char LevelZero::randomizeBlock() { //selects a char from the sequence
     char b = sequence[sequence_index];
     sequence_index++;
     if (sequence_index >= (int) sequence.size()) {
@@ -43,11 +44,11 @@ char LevelZero::randomizeBlock() {
     return b;
 }
 
-void LevelZero::random() {
+void LevelZero::random() { //empty declaration
     return;
 }
 
-void LevelZero::noRandom(std::string f) {
+void LevelZero::noRandom(std::string f) {//empty declaration
     f = f;
     return;
 }

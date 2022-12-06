@@ -5,15 +5,12 @@ AbstractBlock::~AbstractBlock() {}
 void AbstractBlock::rotate(bool ccw) {
     int prev = currOrientation;
     currOrientation = ccw ? (currOrientation + 3) % 4 : (currOrientation + 1) % 4;
-    //std::cout << "surely" << std::endl;
     resetBoard(t,l,prev);
     if (testCollisions(t, l, prev)) {
         currOrientation = prev;
         return;
     }
-    //std::cout << "no wau" << std::endl;
     updateBoard(t,l);
-
 }
 
 void AbstractBlock::down() {
@@ -24,7 +21,6 @@ void AbstractBlock::down() {
         return;
     }
     updateBoard(t,l);
-    
 }
 
 void AbstractBlock::left() {
@@ -76,7 +72,6 @@ bool AbstractBlock::testCollisions(int t, int l, int prevmask) {
 }
 
 void AbstractBlock::resetBoard(int t, int l, int orientation) {
-    
     for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
             if (mask[orientation][i][j]) {
@@ -97,7 +92,6 @@ void AbstractBlock::removeBlock(int t, int l) {
 }
 
 void AbstractBlock::updateBoard(int t, int l) {
-  
     for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
             if (mask[currOrientation][i][j]) {

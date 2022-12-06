@@ -11,10 +11,6 @@ void Cell::setHidden(bool b) {
 }
 
 char Cell::getChar() {
-    if (isHidden) {
-        isHidden = false;
-        return '?';
-    }
     return curChar;
 }
 

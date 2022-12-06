@@ -3,20 +3,17 @@
 #include <iomanip>  
 #include <vector>
 #include "observer.h"
-// #include "window.h"
 #include "game.h"
 #include "match.h"
 
-
+//textobserver inhereits from Observer
 class textobserver: public Observer{
-    Match* match;
+    Match* match; //pointer to subject
     std::ostream &out = std::cout;
-    // int top, bottom, left, right;
 
     public:
         ~textobserver();
         textobserver(Match * match); 
-            // studio{studio}, top{top}, bottom{bottom}, left{left}, right{right}{};
         void notify() override;
 };
 

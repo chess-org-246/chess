@@ -2,7 +2,7 @@
 #define MASKS_H
 
 #include <vector>
-
+//set each mask as a global variable
 extern std::vector<std::vector<int>> I1;
 extern std::vector<std::vector<int>> I2;
 extern std::vector<std::vector<int>> I3;
