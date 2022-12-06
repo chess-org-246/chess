@@ -7,14 +7,15 @@ textobserver::textobserver(Match * match){
 }
  //print out each players board with their information
 void textobserver::notify(){
+  std::string gap = "            ";
   out << std::setw(18);
-  out << "        Player 1                   Player 2        " << std::endl;
-  out << "Level:                 " << match->getLevel(1) << "   ";
+  out << "        Player 1          " + gap + "         Player 2        " << std::endl;
+  out << "Level:                 " << match->getLevel(1) << gap ;
   out << "Level:                 " << match->getLevel(2) << std::endl;
 
-  out << "Score:                 " << match->getScore(1) << "   ";
+  out << "Score:                 " << match->getScore(1) << gap;
   out << "Score:                 " << match->getScore(2) << std::endl;
-  out << "-------------------------  -------------------------" << std::endl;
+  out << "-------------------------" + gap + "-------------------------" << std::endl;
     for(int i = 0; i < 18; i++) {
         out << "| ";
         for (int j = 0; j < 11; j++) {
@@ -30,7 +31,7 @@ void textobserver::notify(){
     }
 
         
-  out << "-------------------------  -------------------------" << std::endl;
+  out << "-------------------------"+gap+"-------------------------" << std::endl;
 //find the next block
   std::vector<std::vector<int>> temp1;
     switch(match->nextBlock(1)){
@@ -82,7 +83,7 @@ void textobserver::notify(){
             break;
 
     }
-  out << "Next Block:                  Next Block:\n";
+  out << "Next Block:                 " + gap + "Next Block:\n";
   for(int i = 0;i<4;i++){
     for(int j = 0;j<4;j++){
       if(temp1[i][j]){
@@ -92,7 +93,7 @@ void textobserver::notify(){
         out << ".";
       }
     }
-    out << "                         ";
+    out << "                         " << gap;
     for(int j = 0;j<4;j++){
       if(temp2[i][j]){
         out << match->nextBlock(2);

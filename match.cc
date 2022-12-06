@@ -1,7 +1,7 @@
 #include "match.h"
 
 Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
-    highScore{0}, game1{std::make_unique<Game>(_p1Level, f1)}, game2{std::make_unique<Game>(_p1Level, f2)} {
+    highScore{0}, game1{std::make_unique<Game>(_p1Level, true, f1)}, game2{std::make_unique<Game>(_p1Level, false, f2)}, file1{f1}, file2{f2} {
         _p1Level = _p1Level;
         _p2Level = _p2Level;
         em.register_command("left", &Game::left);
@@ -36,11 +36,10 @@ bool Match::playMatch() {
     std::string cmd;
     if (std::cin >> cmd)
     { // start game
-    std::cout << "started\n";
-        bool run = true;
+        // bool run = true;
         bool p1 = true;
         game1->genBlock();
-        while (run) {
+        while (true) {
             try {
                 if (p1) {
                     game2->genBlock(); // generating OTHER player's block so they can see during their turn
@@ -218,15 +217,12 @@ bool Match::playMatch() {
                     }
                 }
             }
-            catch (NoSpaceForBlock)
+            catch (NoSpaceForBlock e)
             {
-                run = false;
-                if (p1) {
-                    std::cout << "p2 lost\n";
-                    // p2 lost
+                if (e.getPlayer1()) {
+                    std::cout << "Player 2 Wins!\n\n";
                 } else {
-                    std::cout << "p1 lost\n";
-                    // p1 lost
+                    std::cout << "Player 1 Wins! \n\n";
                 }
                 if (game1->getScore() > highScore) {
                     highScore = game1->getScore();
@@ -234,7 +230,8 @@ bool Match::playMatch() {
                 if (game2->getScore() > highScore) {
                     highScore = game2->getScore();
                 }
-                return false;
+                restart();
+                return true;
             }
             p1 = !p1;
         }
@@ -243,8 +240,8 @@ bool Match::playMatch() {
 }
 
 void Match::restart() {
-    game1 = std::make_unique<Game>(game1->getLevel(), "sequence1.txt");
-    game2 = std::make_unique<Game>(game2->getLevel(), "sequence2.txt");
+    game1 = std::make_unique<Game>(game1->getLevel(), true, file1);
+    game2 = std::make_unique<Game>(game2->getLevel(), false, file2);
 }
 
 char Match::getState(int row, int col, int playerNum) const //returns the state of the board at a position
@@ -291,4 +288,8 @@ int Match::getScore(int playerNum){ //returns scores
     else{
         return game2->getScore();
     }
+}
+
+int Match::getHighScore(){
+    return highScore;
 }

@@ -6,7 +6,6 @@ SpecialBlock::SpecialBlock(Board * board, int _blockLevel) : AbstractBlock{board
     blockType = '*';
     l = 5;
     if (testCollisions(t, l, currOrientation)) {
-        std::cout << "first";
         throw NoSpaceForBlock{};
     }
     this->drop();

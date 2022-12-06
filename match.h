@@ -18,6 +18,9 @@ class Match : public Subject{
     std::unique_ptr<Game> game1;
     std::unique_ptr<Game> game2;
 
+    std::string file1;
+    std::string file2;
+
     public:
         Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
         void restart();
@@ -27,6 +30,7 @@ class Match : public Subject{
         char nextBlock(int playerNum); //returns the next block of the specific player
         bool playMatch(); 
         void printBoard(); //notifys the observers
+        int getHighScore();
 };
 
 #endif

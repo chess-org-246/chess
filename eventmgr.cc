@@ -60,7 +60,6 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
         iss >> pref; // grab prefix int
     }
     iss >> suff;
-    std::cout << suff << std::endl;
     suff = t.search(suff); // search for full command in trie
     if (suff == "macro") { // if macro, initialize sequence in table
         (*in) >> arg;

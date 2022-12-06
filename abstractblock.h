@@ -26,6 +26,7 @@ class AbstractBlock {
         // info about the block
         char blockType;
         int blockLevel;
+
     public:
         // dtor
         virtual ~AbstractBlock();
