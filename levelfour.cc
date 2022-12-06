@@ -27,19 +27,19 @@ std::unique_ptr<AbstractBlock> LevelFour::generateBlock(Board* board, char block
    std::unique_ptr<AbstractBlock> b;
     try {
         if (block == 'I') {
-            b = std::make_unique<IBlock>(board, 2);
+            b = std::make_unique<IBlock>(board, 4);
         } else if (block == 'J') {
-            b = std::make_unique<JBlock>(board, 2);
+            b = std::make_unique<JBlock>(board, 4);
         } else if (block == 'L') {
-            b = std::make_unique<LBlock>(board, 2);
+            b = std::make_unique<LBlock>(board, 4);
         } else if (block == 'O') {
-            b = std::make_unique<OBlock>(board, 2);
+            b = std::make_unique<OBlock>(board, 4);
         } else if (block == 'S') {
-            b = std::make_unique<SBlock>(board, 2);
+            b = std::make_unique<SBlock>(board, 4);
         } else if (block == 'T') {
-            b = std::make_unique<TBlock>(board, 2);
+            b = std::make_unique<TBlock>(board, 4);
         } else {
-            b = std::make_unique<ZBlock>(board, 2);
+            b = std::make_unique<ZBlock>(board, 4);
         }
         return b;
     } catch (NoSpaceForBlock) {

@@ -37,7 +37,8 @@ int main(int argc, char* argv[]) {
                 f2 = argv[index];
             } else if (cmd == "-startlevel") {
                 ++index;
-                std::istringstream iss {cmd};
+                std::string arg = argv[index];
+                std::istringstream iss {arg};
                 iss >> startLevel;
             }
             ++index;

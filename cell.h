@@ -9,6 +9,7 @@ class Cell {
 
     // current character in a cell
     char curChar;
+    unsigned long blockId;
 
     public:
         // ctor
@@ -19,6 +20,8 @@ class Cell {
         void setHidden(bool b);
         char getChar();
         void setChar(char c);
+        void setBlockId(unsigned long id);
+        unsigned long getBlockId();
 };
 
 #endif

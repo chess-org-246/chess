@@ -103,6 +103,16 @@ void Game::checkRows() {
             numOfRowsCleared++;
         }
     }
+
+    std::unordered_set<unsigned long> idSet;
+
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            idSet.insert(board.board[i][j]->getBlockId());
+        }
+    }
+    
+
     // behaviour dependent on # of rows cleared
     if (numOfRowsCleared == 0) {
         levelFourCounter++; // constructive force
@@ -117,7 +127,7 @@ void Game::checkRows() {
     // check if any blocks have entirely been deleted
     for (auto it = blocks.begin(); it != blocks.end(); ++it) {
         // if we don't find any remaining cells
-        if (!((*it)->checkCells())) { 
+        if (!((*it)->checkCells(idSet))) {
             // add to the score
             score += (1 + (*it)->getBlockLevel()) * (1 + (*it)->getBlockLevel()); 
             // remove the block
@@ -160,11 +170,11 @@ void Game::down() {
 }
 
 void Game::rotateCW() {
-    blocks[0]->rotate(true);
+    blocks[0]->rotate(false);
 }
 
 void Game::rotateCCW() {
-    blocks[0]->rotate(false);
+    blocks[0]->rotate(true);
 }
 
 void Game::drop() {
