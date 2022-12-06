@@ -14,8 +14,14 @@ void EventMgr::dispatch_command(std::string cmd, Game * instance) {
     callback func;
     std::string payload = t.search(cmd);
     if (payload != "") {
+        if (dispatch_table1.count(payload)) {
         func = dispatch_table1[payload];
         (instance->*func)();
+        } else {
+            for (auto &i : dispatch_table3[payload]) {
+                (instance->*i)();
+            }
+        }
     }
 }
 
@@ -33,6 +39,7 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
     std::vector<std::string> bytes;
     std::string cmd;
     std::string arg = "";
+    std::string arg2 = "";
     if (!((*in) >> cmd)) {
         if (in == &ifs) {
             ifs.close();
@@ -55,6 +62,27 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
     iss >> suff;
     std::cout << suff << std::endl;
     suff = t.search(suff);
+    if (suff == "macro") {
+        (*in) >> arg;
+        std::vector<callback> cblist;
+        while(arg2 != "end") {
+        (*in) >> arg2;
+        std::string cmd_elem = t.search(arg2);
+        if (cmd_elem != "" && cmd_elem != "end") {
+            cblist.push_back(dispatch_table1[cmd_elem]);
+        }
+        }
+        dispatch_table3[arg] = cblist;
+        t.insert(arg);
+        return fnp_input();
+    }
+    if (suff == "alias") {
+        (*in) >> arg;
+        (*in) >> arg2;
+        dispatch_table1[arg2] = dispatch_table1[t.search(arg)];
+        t.insert(arg2);
+        return fnp_input();
+    }
     if (suff == "sequence") {
         (*in) >> arg;
         ifs.open(arg, std::ifstream::in);

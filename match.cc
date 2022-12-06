@@ -17,6 +17,8 @@ Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
         em.register_command("sequence", (void (Game::*)(void)) nullptr);
         em.register_command("restart", (void (Game::*)(void)) nullptr);
         em.register_command("end", (void (Game::*)(void)) nullptr);
+        em.register_command("alias", (void (Game::*)(void)) nullptr);
+        em.register_command("macro", (void (Game::*)(void)) nullptr);
         em.register_command("I", &Game::replaceI);
         em.register_command("J", &Game::replaceJ);
         em.register_command("L", &Game::replaceL);

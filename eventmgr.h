@@ -24,6 +24,7 @@ class EventMgr {
 
     std::unordered_map<std::string, callback> dispatch_table1;
     std::unordered_map<std::string, callback2> dispatch_table2;
+    std::unordered_map<std::string, std::vector<callback>> dispatch_table3;
     public:
         void register_command(std::string cmd, callback cb);
         void register_command(std::string cmd, callback2 cb2);
