@@ -16,6 +16,7 @@ Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
         em.register_command("random", &Game::random);
         em.register_command("sequence", (void (Game::*)(void)) nullptr);
         em.register_command("restart", (void (Game::*)(void)) nullptr);
+        em.register_command("end", (void (Game::*)(void)) nullptr);
         em.register_command("I", &Game::replaceI);
         em.register_command("J", &Game::replaceJ);
         em.register_command("L", &Game::replaceL);
@@ -29,7 +30,7 @@ Match::Match(int _p1Level, std::string f1, int _p2Level, std::string f2):
 bool Match::playMatch() {
     // this function is gonna have all the game logic
 
-    std::cout << "biaquadriso" << std::endl;
+    std::cout << "BIQUADRIS: Enter anything to start: " << std::endl;
     std::string cmd;
     if (std::cin >> cmd) { // start game
         bool run = true;
@@ -49,6 +50,9 @@ bool Match::playMatch() {
                         if (input.second[0] == "restart") {
                             restart();
                             return true;
+                        }
+                        if (input.second[0] == "end") {
+                            return false;
                         }
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {
@@ -131,6 +135,9 @@ bool Match::playMatch() {
                         if (input.second[0] == "restart") {
                             restart();
                             return true;
+                        }
+                        if (input.second[0] == "end") {
+                            return false;
                         }
                         for (int i = 0; i < input.first; ++i) {
                             if (input.second[0] == "leveldown") {

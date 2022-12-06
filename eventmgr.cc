@@ -38,6 +38,12 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
             ifs.close();
             in = &inp;
         }
+        else {
+            ret.first = 0;
+            bytes.push_back("end");
+            ret.second = bytes;
+            return ret;
+        }
         (*in) >> cmd;
     }
     std::istringstream iss{cmd};
