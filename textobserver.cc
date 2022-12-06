@@ -115,11 +115,7 @@ void textobserver::notify(){
             break;
 
     }
-<<<<<<< HEAD
-  out << "Next Block:                 " + gap + "Next Block:\n";
-=======
   out << "       Next Block:      " + gap + "        Next Block:\n";
->>>>>>> 40e8892 (textobserver high score added)
   for(int i = 0;i<4;i++){
   out << "         ";
     for(int j = 0;j<4;j++){
@@ -130,11 +126,7 @@ void textobserver::notify(){
         out << ".";
       }
     }
-<<<<<<< HEAD
-    out << "                         " << gap;
-=======
     out << "            " << gap << "          ";
->>>>>>> 40e8892 (textobserver high score added)
     for(int j = 0;j<4;j++){
       if(temp2[i][j]){
         out << match->nextBlock(2);
