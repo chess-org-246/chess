@@ -1,9 +1,9 @@
 #include "game.h"
 
 
-void Game::printBoard() {
-    board.printBoard();
-}
+// void Game::printBoard() {
+//     this->notifyObservers();
+// }
 
 Game::Game(int curLevel, std::string filename):
     currentLevel{curLevel} , currBlock{nullptr} {
@@ -23,9 +23,18 @@ Game::Game(int curLevel, std::string filename):
         }
 
 }
-
-
-char Game::getState(int row, int col){
+void Game::copyBoard(){
+    for(int i = 0;i<height;i++){
+        for(int j = 0;j<width;j++){
+            prevBoard[i][j] = board.board[i][j]->getChar();
+        }
+    }
+}
+char Game::getPrevState(int row, int col) const{
+    // std::cout << "YOOO" << std::endl;
+    return prevBoard[row][col];
+}
+char Game::getState(int row, int col) const{
     return board.board[row][col]->getChar();
 }
 
@@ -37,6 +46,18 @@ int Game::getLevel() {
     return currentLevel;
 }
 
+std::vector<std::vector<char>> Game::getNext(){
+    std::vector<std::vector <char>> temp;
+    for(int i = 0;i<4;i++){
+        std::vector<char> temp1;
+        for(int j = 0;j<4;j++){
+            temp1.emplace_back(this->getState(i,j));
+        }
+        temp.emplace_back(temp1);
+    }
+    return temp;
+}
+
 bool Game::getSpecial() {
     return specialActionAvailable;
 }
@@ -46,6 +67,7 @@ void Game::setSpecial(bool b) {
 }
 
 void Game::genBlock() {
+    // copyBoard();
     char first = level->randomizeBlock();
     if (nextBlock == '!') {
         nextBlock = level->randomizeBlock();
@@ -113,27 +135,33 @@ bool Game::isHeavy(){
 }
 
 void Game::left() {
+    // copyBoard();
     blocks[0]->left();
 }
 
 void Game::right() {
-    blocks[0]->right();
+    // copyBoard();
+        blocks[0]->right();
 }
 
 void Game::down() {
+    // copyBoard();
     blocks[0]->down();
 }
 
 
 void Game::rotateCW() {
+    // copyBoard();
     blocks[0]->rotate(true);
 }
 
 void Game::rotateCCW() {
+    // copyBoard();
     blocks[0]->rotate(false);
 }
 
 void Game::drop() {
+    //copyBoard();
     if (currBlock == nullptr) {
         genBlock();
     }

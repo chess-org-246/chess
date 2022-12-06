@@ -1,5 +1,7 @@
 #include "game.h"
 #include "trie.h"
+#include "textobserver.h"
+#include "graphobserver.h"
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
@@ -45,8 +47,11 @@ int main(int argc, char* argv[]) {
     }
     Match m = {startLevel, f1, startLevel, f2};
     srand(randSeed);
+    std::unique_ptr<textobserver> t = std::make_unique<textobserver>(&m);
+    std::unique_ptr<graphobserver> g;
     if (makeGraphics) {
         // make graphics observer
+         g = std::make_unique<graphobserver>(&m);
     }
     while(m.playMatch()){}
 
@@ -81,6 +86,9 @@ int main(int argc, char* argv[]) {
     while(std::cin >> command) {
         if (command == "g") {
             g1.genBlock();
+            std::cout << "YOOO1" << std::endl;
+            // g1.copyBoard();
+            std::cout << "YOOO2" << std::endl;
             g1.printBoard();
         } else if (command == "do") {
             g1.down();
@@ -110,5 +118,6 @@ int main(int argc, char* argv[]) {
             g1.noRandom(f);
         }
     }
+
     */
 }
