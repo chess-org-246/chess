@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>  
+#include <unordered_set>
 #include "board.h"
 #include "masks.h"
 
@@ -10,6 +11,7 @@
 //   Contains block-specific methods, like moving and collision testing.
 class AbstractBlock {
     protected:
+        static unsigned long nextId;
         // outline of the current rotation of the block
         std::vector<std::vector<std::vector<int>>> mask; 
 
@@ -26,6 +28,7 @@ class AbstractBlock {
         // info about the block
         char blockType;
         int blockLevel;
+        unsigned long blockId;
 
     public:
         // dtor
@@ -33,7 +36,8 @@ class AbstractBlock {
 
         // ctor
         AbstractBlock(Board * board, int _blockLevel): 
-            board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel} {};
+            board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel}, blockId{nextId++} {
+            };
 
         // move the block to a position
         void updateBoard(int t, int l);
@@ -59,13 +63,14 @@ class AbstractBlock {
         void drop();
 
         // checks if block is still alive
-        bool checkCells();
+        bool checkCells(std::unordered_set<unsigned long> idSet);
 
         // getters
         int getT();
         int getL();
         int getBlockLevel();
         char getBlockType();
+        unsigned long getBlockId();
 };
 
 #endif

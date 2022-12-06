@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <utility>
+#include <unordered_set>
 
 #include "board.h"
 #include "abstractblock.h"

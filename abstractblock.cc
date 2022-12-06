@@ -1,6 +1,9 @@
 #include "abstractblock.h"
 
+unsigned long AbstractBlock::nextId = 1;
+
 AbstractBlock::~AbstractBlock() {}
+
 
 void AbstractBlock::rotate(bool ccw) {
     int prev = currOrientation;
@@ -76,6 +79,7 @@ void AbstractBlock::resetBoard(int t, int l, int orientation) {
         for(int j = 0; j < 4; j++) {
             if (mask[orientation][i][j]) {
                 board->board[t+i][j+l]->setChar('.');
+                board->board[t+i][j+l]->setBlockId(0);
             }
         }
     }      
@@ -86,6 +90,7 @@ void AbstractBlock::removeBlock(int t, int l) {
         for(int j = 0; j < 4; j++) {
             if (mask[currOrientation][i][j]) {
                 board->board[t+i][j+l]->setChar('.');
+                board->board[t+i][j+l]->setBlockId(0);
             }
         }
     }
@@ -96,6 +101,8 @@ void AbstractBlock::updateBoard(int t, int l) {
         for(int j = 0; j < 4; j++) {
             if (mask[currOrientation][i][j]) {
                 board->board[t+i][j+l]->setChar(blockType);
+                board->board[t+i][j+l]->setBlockId(blockId);
+
             }
         }
     }
@@ -117,17 +124,12 @@ char AbstractBlock::getBlockType () {
     return blockType;
 }
 
+unsigned long AbstractBlock::getBlockId() {
+    return blockId;
+}
+
 // returns true if block has at least one non '.' cell (still alive)
 //   false otherwise (block is completely gone, add points)
-bool AbstractBlock::checkCells() {
-    for (int y = t; (y < t + 4 && y < 18); ++y) {
-        for (int x = l; (x < l + 4 && x < 11); ++x) {
-            if (mask[currOrientation][y - t][x - l] == 1) {
-                if (board->board[y][x]->getChar() == blockType) {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
+bool AbstractBlock::checkCells(std::unordered_set<unsigned long> idSet) {
+    return (bool) idSet.count(blockId);
 }

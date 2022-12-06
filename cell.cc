@@ -17,3 +17,12 @@ char Cell::getChar() {
 void Cell::setChar(char c) {
     curChar = c;
 }
+
+void Cell::setBlockId(unsigned long i) { 
+    blockId = i;
+}
+
+unsigned long Cell::getBlockId() {
+    return blockId;
+}
+
