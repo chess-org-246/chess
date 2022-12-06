@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "eventmgr.h"
+#include <memory>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -12,12 +13,12 @@
 class Match {
     int highScore;
     EventMgr em;
-    Game game1;
-    Game game2;
+    std::unique_ptr<Game> game1;
+    std::unique_ptr<Game> game2;
 
     public:
         Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
-        void playMatch();
+        bool playMatch();
         void restart();
 };
 
