@@ -109,20 +109,19 @@ void graphobserver::notify(){
     char c;//initalize the character that is read inside the double for loop
   
     //rewriting value of the level and score everytime a change happens
+    w->fillRectangle(0, height-80, width, 80, 0); //creates a white footer at the bottom where the information goes
     w->drawString(width/8-40, height-50, "Level: " + std::to_string(match->getLevel(1)));
     w->drawString(5*width/8-40, height-50, "Level: " + std::to_string(match->getLevel(2)));
     w->drawString(width/8-40, height-20, "Score: " + std::to_string(match->getScore(1)));
     w->drawString(5*width/8-40, height-20, "Score: " + std::to_string(match->getScore(2)));
     
-    // w->drawString(width/2-(40*gap), height-50, "High Score")
+    w->drawString(width/2-(40*gap), height-50, "High Score");
+    w->drawString(width/2-(40*gap)+15, height-50+15, std::to_string(match->getHighScore()));
     //inside the next block box, we want to clear the previous blocks
-    for(int i = 0;i<4;i++){
-        for(int j = 0;j<4;j++){
-            w->fillRectangle((2*width/8-40+70)+i*15, (height-50-20)+j*15, 15, 15, 1);
-            w->fillRectangle((6*width/8-40+70)+i*15, (height-50-20)+j*15, 15, 15, 1);
-        }
-    }
-    //fill the next block box with the correct next block
+    w->fillRectangle(2*width/8-40+70, height-50-20, 60, 60, 1);
+    w->fillRectangle(6*width/8-40+70, height-50-20, 60, 60, 1);
+
+    // fill the next block box with the correct next block
     for(int i = 0;i<4;i++){
         for(int j = 0;j<4;j++){
             if(temp1[j][i]){
@@ -133,7 +132,27 @@ void graphobserver::notify(){
             }
         }
     }
-    //iterate through each square of the window aligning with each board
+    // //iterate through each square of the window aligning with each board
+    // if(match->isPlayerTurn(1)){
+    //     for (int i = 0; i < 18; ++i) {
+    //         for (int j = 0; j < 11; ++j) {
+    //             if(match->getState(i, j, 1) != prevBoard1[i][j]){
+    //                 int val = dict[match->getState(i, j, 1)];
+    //                 w->fillRectangle(j*40, i*40+40, 40, 40, val);
+    //             }
+    //         }
+    //     }
+    // }
+    // else if(match->isPlayerTurn(2)){
+    //     for (int i = 0; i < 18; ++i) {
+    //         for (int j = 0; j < 11; ++j) {
+    //             if(match->getState(i, j, 2) != prevBoard1[i][j]){
+    //                 int val = dict[match->getState(i, j, 2)];
+    //                 w->fillRectangle((11+gap+j)*40, i*40+40, 40, 40, val);
+    //             }
+    //         }
+    //     }
+    // }
     for (int i = 0; i < height/40; ++i) {
         for (int j = 0; j < width/40; ++j) {
 

@@ -44,6 +44,10 @@ bool Game::getBlind() {
     return blind;
 }
 
+bool Game::getPlayerTurn(){
+    return gameIsP1;
+}
+
 // setter
 void Game::setSpecial(bool b) {
     specialActionAvailable = b;

@@ -305,3 +305,12 @@ int Match::getScore(int playerNum){ //returns scores
 int Match::getHighScore(){
     return highScore;
 }
+
+bool Match::isPlayerTurn(int playerNum){
+    if(playerNum == 1){
+        return game1->getPlayerTurn();
+    }
+    else{
+        return game2->getPlayerTurn();
+    }
+}

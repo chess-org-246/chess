@@ -52,7 +52,10 @@ void textobserver::notify(){
             out << " ";
           }
           out << hs;
-          for(int k = 0;k<length/2+1;k++){
+          for(int k = 0;k<length/2;k++){
+            out << " ";
+          }
+          if(length%2 != 0){
             out << " ";
           }
         }
