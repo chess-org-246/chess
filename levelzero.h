@@ -14,14 +14,15 @@
 #include "tblock.h"
 #include "zblock.h"
 
+//inhereits from abstractlevel
 class LevelZero : public AbstractLevel {
-    std::vector<char> sequence;
+    std::vector<char> sequence; 
     int sequence_index;
 
     public:
-        explicit LevelZero(std::string filename);
-        std::unique_ptr<AbstractBlock> generateBlock(Board* board, char block) override;
-        char randomizeBlock() override;
+        explicit LevelZero(std::string filename); //explicit for one parameter constructor
+        std::unique_ptr<AbstractBlock> generateBlock(Board* board, char block) override; //generate block function
+        char randomizeBlock() override; 
         void random() override;
         void noRandom(std::string f) override;
 };

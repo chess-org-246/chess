@@ -21,14 +21,12 @@ class Match : public Subject{
     public:
         Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
         void restart();
-        char getState(int row, int col, int playerNum) const override;
-        int getLevel(int playerNum);
-        int getScore(int playerNum);
-        char nextBlock(int playerNum);
-        // char getPrevState(int row, int col, int playerNum) const;
-        // std::vector<std::vector<char>> getNext(int playerNum);
-        bool playMatch();
-        void printBoard();
+        char getState(int row, int col, int playerNum) const override; //returns the state for a specific player at a specific position
+        int getLevel(int playerNum); //returns the level of the specific player
+        int getScore(int playerNum); //returns the score of the specific player
+        char nextBlock(int playerNum); //returns the next block of the specific player
+        bool playMatch(); 
+        void printBoard(); //notifys the observers
 };
 
 #endif

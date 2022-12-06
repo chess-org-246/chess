@@ -1,13 +1,13 @@
 #ifndef TRIE_H
 #define TRIE_H
-
+ // PREFIX TRIE IMPLEMENTATION FOR INPUT
 #include <unordered_map>
 #include <vector>
 #include <string>
 
 
-class Trie {
-    std::vector<std::string> possibilities;
+class Trie { //trie implementation
+    std::vector<std::string> possibilities; // possible complete strings at node
     std::unordered_map<char, Trie*> children;
     public:
     void insert(std::string s); 

@@ -1,5 +1,5 @@
 #include "masks.h"
-
+//define each variable as a double vector
 std::vector<std::vector<int>> I1 = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{1,1,1,1}};
 std::vector<std::vector<int>> I2 = {{1,0,0,0},{1,0,0,0},{1,0,0,0},{1,0,0,0}};
 std::vector<std::vector<int>> I3 = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{1,1,1,1}};

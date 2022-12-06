@@ -7,11 +7,15 @@
 #include "window.h"
 #include <iostream>
 
+
+// The board for the game
 class Board {
     public:
-    std::vector<std::vector<std::unique_ptr<Cell>>> board; /* 18 rows * 11 cols */
-    Board();
-    void printBoard();
+        // board of cells
+        std::vector<std::vector<std::unique_ptr<Cell>>> board; /* 18 rows * 11 cols */
+
+        // ctor
+        Board();
 };
 
 #endif

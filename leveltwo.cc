@@ -5,7 +5,7 @@ std::unique_ptr<AbstractBlock> LevelTwo::generateBlock(Board* board, char block)
 
     try {
         if (block == 'I') {
-            b = std::make_unique<IBlock>(board, 2);
+            b = std::make_unique<IBlock>(board, 2); //get the block pointer, each block has a board and a level
         } else if (block == 'J') {
             b = std::make_unique<JBlock>(board, 2);
         } else if (block == 'L') {
@@ -20,7 +20,7 @@ std::unique_ptr<AbstractBlock> LevelTwo::generateBlock(Board* board, char block)
             b = std::make_unique<ZBlock>(board, 2);
         }
         return b;
-    } catch (NoSpaceForBlock) {
+    } catch (NoSpaceForBlock) { //if error, throw an error
         throw;
     }
 }
