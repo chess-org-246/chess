@@ -7,13 +7,21 @@ textobserver::textobserver(Match * match){
 }
  //print out each players board with their information
 void textobserver::notify(){
-  std::string gap = "            ";
+  int gapSize = 16;
+  int hs = match->getHighScore();
+  if((int)std::to_string(hs).length() > gapSize){
+    gapSize = std::to_string(hs).length();
+  }
+  std::string gap;
+  for(int i = 0;i<gapSize;i++){
+    gap += " ";
+  }
   out << std::setw(18);
   out << "        Player 1          " + gap + "         Player 2        " << std::endl;
-  out << "Level:                 " << match->getLevel(1) << gap ;
+  out << "Level:                 " << match->getLevel(1) << gap << " ";
   out << "Level:                 " << match->getLevel(2) << std::endl;
 
-  out << "Score:                 " << match->getScore(1) << gap;
+  out << "Score:                 " << match->getScore(1) << gap << " ";
   out << "Score:                 " << match->getScore(2) << std::endl;
   out << "-------------------------" + gap + "-------------------------" << std::endl;
     for(int i = 0; i < 18; i++) {
@@ -21,8 +29,32 @@ void textobserver::notify(){
         for (int j = 0; j < 11; j++) {
             out << match->getState(i, j, 1) << " "; //get the state of each players board char by char
         }
-        out << "|  ";
+        out << "|";
 
+        if(i == 6){
+          std::string word = "High Score:";
+          int length = gapSize - word.length();
+          for(int k = 0;k<length/2;k++){
+            out << " ";
+          }
+          out << word;
+          for(int k = 0;k<length/2+1;k++){
+            out << " ";
+          }
+        }
+        else if(i == 7){
+          int length = gapSize - std::to_string(hs).length();
+          for(int k = 0;k<length/2;k++){
+            out << " ";
+          }
+          out << hs;
+          for(int k = 0;k<length/2+1;k++){
+            out << " ";
+          }
+        }
+        else{
+          out << gap;
+        }
         out << "| ";
         for (int j = 0; j < 11; j++) {
             out << match->getState(i, j, 2) << " ";
@@ -83,8 +115,9 @@ void textobserver::notify(){
             break;
 
     }
-  out << "Next Block:                 " + gap + "Next Block:\n";
+  out << "       Next Block:      " + gap + "        Next Block:\n";
   for(int i = 0;i<4;i++){
+  out << "         ";
     for(int j = 0;j<4;j++){
       if(temp1[i][j]){
         out << match->nextBlock(1);
@@ -93,7 +126,7 @@ void textobserver::notify(){
         out << ".";
       }
     }
-    out << "                         " << gap;
+    out << "            " << gap << "          ";
     for(int j = 0;j<4;j++){
       if(temp2[i][j]){
         out << match->nextBlock(2);

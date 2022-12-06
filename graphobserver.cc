@@ -111,6 +111,7 @@ void graphobserver::notify(){
     w->drawString(width/8-40, height-20, "Score: " + std::to_string(match->getScore(1)));
     w->drawString(5*width/8-40, height-20, "Score: " + std::to_string(match->getScore(2)));
     
+    // w->drawString(width/2-(40*gap), height-50, "High Score")
     //inside the next block box, we want to clear the previous blocks
     for(int i = 0;i<4;i++){
         for(int j = 0;j<4;j++){
