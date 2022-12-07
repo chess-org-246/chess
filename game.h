@@ -109,6 +109,7 @@ class Game {
         char nextBlock();
         bool getSpecial();
         bool getBlind();
+        bool getPlayerTurn();
         void setSpecial(bool b);
         bool isHeavy();
         bool isBlind();

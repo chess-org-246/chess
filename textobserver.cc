@@ -25,7 +25,12 @@ void textobserver::notify(){
   out << "Level:                 " << match->getLevel(1) << gap << " ";
   out << "Level:                 " << match->getLevel(2) << std::endl;
 
-  out << "Score:                 " << match->getScore(1) << gap << " ";
+  out << "Score:                 " << match->getScore(1);
+
+  for(int i = 0;i<=gapSize-(int)std::to_string(match->getScore(1)).length()+1;i++){
+    out << " ";
+  }
+  
   out << "Score:                 " << match->getScore(2) << std::endl;
   out << "-------------------------" + gap + "-------------------------" << std::endl;
     for(int i = 0; i < 18; i++) {
@@ -52,7 +57,10 @@ void textobserver::notify(){
             out << " ";
           }
           out << hs;
-          for(int k = 0;k<length/2+1;k++){
+          for(int k = 0;k<length/2;k++){
+            out << " ";
+          }
+          if(length%2 != 0){
             out << " ";
           }
         }

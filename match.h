@@ -32,6 +32,7 @@ class Match : public Subject{
         int getScore(int playerNum); //returns the score of the specific player
         std::string getCurrPrompt();
         char nextBlock(int playerNum); //returns the next block of the specific player
+        bool isPlayerTurn(int playerNum);
         bool playMatch(); 
         void printBoard(); //notifys the observers
         void printPrompt(std::string prompt);

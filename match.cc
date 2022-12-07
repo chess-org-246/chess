@@ -43,6 +43,12 @@ bool Match::playMatch() {
         while (true) {
             try {
                 if (p1) {
+                    if (game1->getScore() > highScore) {
+                    highScore = game1->getScore();
+                    } 
+                    if (game2->getScore() > highScore) {
+                        highScore = game2->getScore();
+                    }
                     game2->genBlock(); // generating OTHER player's block so they can see during their turn
                     bool p1turn = true;
                     while (p1turn)
@@ -129,6 +135,12 @@ bool Match::playMatch() {
                         game1->unblind();
                     }
                 } else {
+                    if (game1->getScore() > highScore) {
+                    highScore = game1->getScore();
+                    } 
+                    if (game2->getScore() > highScore) {
+                        highScore = game2->getScore();
+                    }
                     game1->genBlock(); // generating OTHER player's block so they can see during their turn
 
                     bool p2turn = true;
@@ -305,4 +317,13 @@ int Match::getScore(int playerNum){ //returns scores
 
 int Match::getHighScore(){
     return highScore;
+}
+
+bool Match::isPlayerTurn(int playerNum){
+    if(playerNum == 1){
+        return game1->getPlayerTurn();
+    }
+    else{
+        return game2->getPlayerTurn();
+    }
 }
