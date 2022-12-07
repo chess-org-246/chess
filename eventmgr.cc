@@ -101,7 +101,13 @@ std::pair <int, std::vector<std::string>> EventMgr::fnp_input() {
 
 
 std::string EventMgr::fetch_byte() {
-    std::string s;
-    (*in) >> s;
-    return s;
+    std::string cmd;
+    if (!((*in) >> cmd)) { // if input is ended
+        if (in == &ifs) { // if currently using file input, return to regular input
+            ifs.close();
+            in = &inp;
+        }
+        (*in) >> cmd;
+    }
+    return cmd;
 }

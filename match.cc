@@ -36,9 +36,7 @@ bool Match::playMatch() {
     // this function is gonna have all the game logic
 
     printPrompt(startGamePrompt);
-    std::string cmd = em.fetch_byte();
-    if (cmd != "")
-    { // start game
+        // start game
         // bool run = true;
         bool p1 = true;
         game1->genBlock();
@@ -107,6 +105,7 @@ bool Match::playMatch() {
                                 cmd = em.fetch_byte();
                                 if (cmd == "I" || cmd == "i") {
                                     game2->replaceI();
+                                    std::cout << "worked";
                                 } else if (cmd == "J" || cmd == "j") {
                                     game2->replaceJ();
                                 } else if (cmd == "L" || cmd == "l") {
@@ -193,6 +192,7 @@ bool Match::playMatch() {
                                 valid = true;
                                 printPrompt(forceBlockPrompt);
                                 cmd = em.fetch_byte();
+                                std::cout << cmd << std::endl;
                                 if (cmd == "I" || cmd == "i") {
                                     game1->replaceI();
                                 } else if (cmd == "J" || cmd == "j") {
@@ -210,6 +210,7 @@ bool Match::playMatch() {
                                 }
                             } else {
                                 printPrompt(invalidSpecAction);
+                                valid = false;
                             }
                         }
                     }
@@ -236,7 +237,7 @@ bool Match::playMatch() {
             }
             p1 = !p1;
         }
-    }
+    
     return false;
 }
 
