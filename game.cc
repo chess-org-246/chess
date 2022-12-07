@@ -305,43 +305,43 @@ void Game::makeHeavy() {
 void Game::replaceI() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<IBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'I'));
 }
 
 void Game::replaceJ() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<JBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'J'));
 }
 
 void Game::replaceL() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<LBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'L'));
 }
 
 void Game::replaceO() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<OBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'O'));
 }
 
 void Game::replaceS() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<SBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'S'));
 }
 
 void Game::replaceT() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<TBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'T'));
 }
 
 void Game::replaceZ() {
     blocks[0]->removeBlock(0, 0);
     blocks.erase(blocks.begin());
-    blocks.insert(blocks.begin(), std::make_unique<ZBlock>(&board, currentLevel));
+    blocks.insert(blocks.begin(), level->generateBlock(&board, 'Z'));
 }
 
 
