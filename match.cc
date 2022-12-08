@@ -111,7 +111,6 @@ bool Match::playMatch() {
                                 cmd = em.fetch_byte();
                                 if (cmd == "I" || cmd == "i") {
                                     game2->replaceI();
-                                    std::cout << "worked";
                                 } else if (cmd == "J" || cmd == "j") {
                                     game2->replaceJ();
                                 } else if (cmd == "L" || cmd == "l") {
@@ -204,7 +203,6 @@ bool Match::playMatch() {
                                 valid = true;
                                 printPrompt(forceBlockPrompt);
                                 cmd = em.fetch_byte();
-                                std::cout << cmd << std::endl;
                                 if (cmd == "I" || cmd == "i") {
                                     game1->replaceI();
                                 } else if (cmd == "J" || cmd == "j") {

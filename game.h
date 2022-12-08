@@ -64,7 +64,8 @@ class Game {
     public:
     // ctors
         Game();
-        Game(int curLevel, bool _gameIsP1, std::string filename = "");
+        ~Game() = default;
+        Game(int curLevel, bool _gameIsP1, std::string filename = "sequence1.txt");
 
         // to check if rows can be cleared, and apply score
         void checkRows();

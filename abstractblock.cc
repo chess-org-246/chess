@@ -4,6 +4,10 @@ unsigned long AbstractBlock::nextId = 1;
 
 AbstractBlock::~AbstractBlock() {}
 
+AbstractBlock::AbstractBlock(Board * board, int _blockLevel): 
+            board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel} {
+                blockId = nextId++;
+            };
 
 void AbstractBlock::rotate(bool ccw) {
     int prev = currOrientation;

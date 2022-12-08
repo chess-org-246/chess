@@ -13,7 +13,7 @@ void Trie::insert_helper(std::string pre, std::string s) {
         children[pre[0]]->insert_helper(pre.substr(1), s);
     }
     else {
-        children[pre[0]] = new Trie();
+        children[pre[0]] = std::make_unique<Trie>();
         children[pre[0]]->insert_helper(pre.substr(1), s);
     }
 }
@@ -38,11 +38,6 @@ std::string Trie::search(std::string s) {
 }
 
 Trie::~Trie() {
-    for (auto & n : children) {
-        if (n.second != nullptr) {
-            delete n.second;
-        }
-    }
 }
 
 

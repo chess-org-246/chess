@@ -10,8 +10,8 @@
 // Abstract block class to be inherited from by each block
 //   Contains block-specific methods, like moving and collision testing.
 class AbstractBlock {
+    static unsigned long nextId;
     protected:
-        static unsigned long nextId;
         // outline of the current rotation of the block
         std::vector<std::vector<std::vector<int>>> mask; 
 
@@ -28,16 +28,14 @@ class AbstractBlock {
         // info about the block
         char blockType;
         int blockLevel;
-        unsigned long blockId;
+        unsigned long blockId = 0;
 
     public:
         // dtor
         virtual ~AbstractBlock();
 
         // ctor
-        AbstractBlock(Board * board, int _blockLevel): 
-            board{board}, currOrientation{0}, t{0}, l{0}, blockLevel{_blockLevel}, blockId{nextId++} {
-            };
+        AbstractBlock(Board * board, int _blockLevel);
 
         // move the block to a position
         void updateBoard(int t, int l);

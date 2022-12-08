@@ -9,7 +9,7 @@ class Cell {
 
     // current character in a cell
     char curChar;
-    unsigned long blockId;
+    unsigned long blockId = 0;
 
     public:
         // ctor
