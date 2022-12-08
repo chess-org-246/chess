@@ -2,10 +2,11 @@
 
 LevelZero::LevelZero(std::string filename):
     sequence_index{0} {
+    sequence = "";
     std::ifstream ifs {filename};
     std::string temp;
     while (ifs >> temp) {
-        sequence.emplace_back(temp[0]);
+        sequence += temp;
     }
 }
 
@@ -36,12 +37,9 @@ std::unique_ptr<AbstractBlock> LevelZero::generateBlock(Board* board, char block
 }
 
 char LevelZero::randomizeBlock() { //selects a char from the sequence
-    char b = sequence[sequence_index];
-    sequence_index++;
-    if (sequence_index >= (int) sequence.size()) {
-        sequence_index = 0;
-    }
-    return b;
+    int temp = sequence_index % sequence.length();
+    sequence_index += 1;
+    return sequence[temp];
 }
 
 void LevelZero::random() { //empty declaration

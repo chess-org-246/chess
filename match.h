@@ -25,6 +25,7 @@ class Match : public Subject{
     std::string currPrompt;
 
     public:
+        ~Match() = default;
         Match(int _p1Level, std::string f1, int _p2Level, std::string f2);
         void restart();
         char getState(int row, int col, int playerNum) const override; //returns the state for a specific player at a specific position

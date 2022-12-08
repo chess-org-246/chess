@@ -17,7 +17,7 @@
 
 class LevelFour : public AbstractLevel {
     bool isRandom;
-    std::vector<char> sequence;
+    std::string sequence;
     int sequence_index;
 
     public:

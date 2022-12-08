@@ -16,9 +16,8 @@ void LevelFour::noRandom(std::string filename) {
         sequence_index = 0;
         std::ifstream ifs {filename};
         std::string temp;
-
         while (ifs >> temp) {
-            sequence.emplace_back(temp[0]);
+            sequence += temp;
         }
     }
 }
@@ -70,11 +69,9 @@ char LevelFour::randomizeBlock() {
             b = 'Z';
         }
     } else {
-        b = sequence[sequence_index];
+        int temp = sequence_index % sequence.length();
+        b = sequence[temp];
         sequence_index++;
-        if (sequence_index >= (int) sequence.size()) {
-            sequence_index = 0;
-        }
     }
     return b;
 }

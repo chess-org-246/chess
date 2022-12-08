@@ -15,6 +15,7 @@ class AbstractBlock;
 //   Implements Level-specific methods (generate block)
 class AbstractLevel {
     public:
+        ~AbstractLevel() = default;
         // places the block onto the board
         virtual std::unique_ptr<AbstractBlock> generateBlock(Board * board, char Block) = 0;
 

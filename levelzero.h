@@ -16,8 +16,8 @@
 
 //inhereits from abstractlevel
 class LevelZero : public AbstractLevel {
-    std::vector<char> sequence; 
-    int sequence_index;
+    std::string sequence; 
+    int sequence_index = 0;
 
     public:
         explicit LevelZero(std::string filename); //explicit for one parameter constructor

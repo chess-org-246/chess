@@ -13,12 +13,11 @@ void LevelThree::random() {
 void LevelThree::noRandom(std::string filename) {
     if (isRandom) {
         isRandom = false;
-        sequence_index = 0;
         std::ifstream ifs {filename};
+        sequence_index = 0;
         std::string temp;
-
         while (ifs >> temp) {
-            sequence.emplace_back(temp[0]);
+            sequence += temp;
         }
     }
 }
@@ -70,11 +69,9 @@ char LevelThree::randomizeBlock() {
             b = 'Z';
         }
     } else {
-        b = sequence[sequence_index];
+        int temp = sequence_index % sequence.length();
+        b = sequence[temp];
         sequence_index++;
-        if (sequence_index >= (int) sequence.size()) {
-            sequence_index = 0;
-        }
     }
     return b;
 }

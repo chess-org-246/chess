@@ -4,6 +4,7 @@
 Game::Game(int curLevel, bool _gameIsP1, std::string filename):
     currentLevel{curLevel} , currBlock{nullptr}, gameIsP1{_gameIsP1} {
         filename = filename;
+        nextBlockChar = '!';
         if (curLevel == 0) {
             level = std::make_unique<LevelZero>(filename);
         } else if (curLevel == 1) {
